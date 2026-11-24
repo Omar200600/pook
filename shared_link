@@ -1,0 +1,125 @@
+/**
+ * ملف الربط والمزامنة الموحّد لمنصة ثري دي اكسيس
+ * المطور: الأستاذ عمر حسان عبره
+ * رقم الكريمي: 737219181 | خارج اليمن: 00967737219181
+ */
+const AxisLinker = (() => {
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  const TRIAL_DAYS = 7;
+  const WA_NUMBER = "967737219181";
+  const KURAIMI_LOCAL = "737219181";
+  const KURAIMI_INTL = "00967737219181";
+  const UNITS = ["unit1.html", "unit2.html", "unit3.html", "unit4.html"];
+
+  function getFingerprint() {
+    let fp = localStorage.getItem("3daxis_fp");
+    if (!fp) {
+      const raw = [
+        navigator.userAgent || "browser",
+        (screen && screen.width ? screen.width : 800) + "x" + (screen && screen.height ? screen.height : 600),
+        Math.floor(100000 + Math.random() * 899999)
+      ].join("|");
+      let hash = 0;
+      for (let i = 0; i < raw.length; i++) {
+        hash = ((hash << 5) - hash) + raw.charCodeAt(i);
+      }
+      fp = "AX-" + Math.abs(hash).toString(36).toUpperCase().slice(0, 6);
+      localStorage.setItem("3daxis_fp", fp);
+    }
+    if (!localStorage.getItem("3daxis_first_run")) {
+      localStorage.setItem("3daxis_first_run", Date.now().toString());
+    }
+    return fp;
+  }
+
+  function getSubscriptionState() {
+    const fp = getFingerprint();
+    const now = Date.now();
+    const subUntil = Number(localStorage.getItem("3daxis_sub_until") || 0);
+    const firstRun = Number(localStorage.getItem("3daxis_first_run") || now);
+
+    if (subUntil > now) {
+      return {
+        fp,
+        active: true,
+        mode: "pro",
+        daysLeft: Math.ceil((subUntil - now) / DAY_MS),
+        message: `✅ الاشتراك مفعّل على جميع الوحدات — متبقي ${Math.ceil((subUntil - now) / DAY_MS)} يوماً`
+      };
+    }
+
+    const rem = Math.ceil(TRIAL_DAYS - ((now - firstRun) / DAY_MS));
+    if (rem <= 0) {
+      return {
+        fp,
+        active: false,
+        mode: "expired",
+        daysLeft: 0,
+        message: "⛔ انتهت الفترة التجريبية (٧ أيام). يرجى الإيداع عبر الكريمي وطلب كود التفعيل."
+      };
+    }
+
+    return {
+      fp,
+      active: true,
+      mode: rem <= 3 ? "warn" : "trial",
+      daysLeft: rem,
+      message: rem <= 3
+        ? `⚠️ تنبيه: متبقي ${rem} أيام على انتهاء التجربة المجانية في جميع الوحدات.`
+        : `🎁 فترة تجريبية مجانية سارية في جميع الوحدات — متبقي ${rem} أيام`
+    };
+  }
+
+  function recordUnitVisit(unitFile) {
+    localStorage.setItem("3daxis_last_unit", unitFile);
+    const visited = JSON.parse(localStorage.getItem("3daxis_visited_units") || "[]");
+    if (!visited.includes(unitFile)) {
+      visited.push(unitFile);
+      localStorage.setItem("3daxis_visited_units", JSON.stringify(visited));
+    }
+  }
+
+  function openUnit(unitFile, event) {
+    recordUnitVisit(unitFile);
+    return true;
+  }
+
+  function buildWhatsAppUrl(customText) {
+    const fp = getFingerprint();
+    const text = customText ||
+      `السلام عليكم أستاذ عمر حسان عبره، أرغب بالاشتراك في منصة ثري دي اكسيس (فيزياء ثالث ثانوي) عبر الكريمي (${KURAIMI_LOCAL}). بصمة جهازي: ${fp}`;
+    return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+  }
+
+  function initPortal() {
+    const st = getSubscriptionState();
+    const bar = document.getElementById("portalStatusBar");
+    const txt = document.getElementById("portalStatusText");
+    const fpBadge = document.getElementById("portalFpBadge");
+    const waBtn = document.getElementById("waPortalBtn");
+
+    if (bar) bar.className = "status-bar " + (st.mode === "pro" ? "pro" : (st.mode === "expired" || st.mode === "warn" ? "warn" : ""));
+    if (txt) txt.textContent = st.message;
+    if (fpBadge) fpBadge.textContent = `بصمة الجهاز: ${st.fp}`;
+    if (waBtn) waBtn.href = buildWhatsAppUrl();
+
+    const visited = JSON.parse(localStorage.getItem("3daxis_visited_units") || "[]");
+    UNITS.forEach((u) => {
+      const el = document.getElementById("meta-" + u.replace(".html", ""));
+      if (el && visited.includes(u)) {
+        el.textContent = `✓ تمت زيارتها (${u})`;
+      }
+    });
+  }
+
+  return {
+    KURAIMI_LOCAL,
+    KURAIMI_INTL,
+    getFingerprint,
+    getSubscriptionState,
+    recordUnitVisit,
+    openUnit,
+    buildWhatsAppUrl,
+    initPortal
+  };
+})();
