@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ثري دي اكسيس | فيزياء ثالث ثانوي — فهرس الوحدات الأربع</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --ink: #132238;
+      --muted: #52647a;
+      --primary: #0f4c81;
+      --primary-2: #1976d2;
+      --accent: #0d9488;
+      --gold: #d97706;
+      --border: #dce5f0;
+      --shadow: 0 10px 26px rgba(19, 34, 56, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+      background: linear-gradient(180deg, #e8f1fb 0%, var(--bg) 100%);
+      color: var(--ink);
+      line-height: 1.75;
+    }
+    header.hero {
+      background: linear-gradient(135deg, #0b2d4d 0%, var(--primary) 60%, var(--primary-2) 100%);
+      color: #fff;
+      padding: 28px 16px;
+      text-align: center;
+      box-shadow: 0 4px 18px rgba(11, 45, 77, 0.22);
+    }
+    header.hero h1 { margin: 0 0 6px; font-size: 1.55rem; font-weight: 800; }
+    header.hero p { margin: 0 auto; max-width: 760px; font-size: 0.96rem; opacity: 0.94; }
+    .container { max-width: 1120px; margin: 20px auto 34px; padding: 0 14px; }
+
+    .status-bar {
+      background: #fffbeb;
+      border: 1.5px solid #f59e0b;
+      border-radius: 13px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    .status-bar.pro { background: #ecfdf5; border-color: #10b981; color: #065f46; }
+    .status-bar.warn { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
+
+    .units-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+    }
+    .unit-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+    .unit-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(15, 76, 129, 0.14);
+    }
+    .unit-badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .unit-card h2 { margin: 0 0 8px; font-size: 1.15rem; color: var(--ink); }
+    .unit-card p { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; }
+    .unit-meta {
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .btn, a.btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: #fff; width: 100%; }
+    .btn-gold { background: #fbbf24; color: #1f2937; }
+    .btn-green { background: #16a34a; color: #fff; }
+    .btn-light { background: #fff; color: var(--primary); }
+
+    .kuraimi-box {
+      margin-top: 22px;
+      background: var(--card);
+      border: 1.5px solid #16a34a;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .kuraimi-box h3 { margin: 0 0 8px; color: #15803d; }
+
+    footer.site-footer {
+      background: linear-gradient(135deg, #0b2d4d, #0f4c81);
+      color: #fff;
+      padding: 18px 14px;
+      margin-top: 30px;
+      border-top: 4px solid #fbbf24;
+    }
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+    }
+    .footer-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>منصة ثري دي اكسيس التعليمية — فيزياء ثالث ثانوي</h1>
+    <p>المنهج اليمني المطور بالرموز العربية والمحاكاة التفاعلية — إعداد وتطوير: <strong>المطور الأستاذ عمر حسان عبره</strong></p>
+  </header>
+
+  <div class="container">
+    <div class="status-bar" id="portalStatusBar">
+      <span id="portalStatusText">جارٍ التحقق من حالة النسخة وبصمة الجهاز...</span>
+      <span id="portalFpBadge" style="background:#fff;padding:4px 10px;border-radius:8px;border:1px solid #cbd5e1;">البصمة: —</span>
+    </div>
+
+    <div class="units-grid">
+      <div class="unit-card">
+        <div>
+          <span class="unit-badge">الوحدة الأولى</span>
+          <h2>الكهرومغناطيسية والحث</h2>
+          <p>المجالات المغناطيسية، الحث الكهرومغناطيسي، قانون فاراداي ولينز، والمحولات الكهربائية.</p>
+        </div>
+        <div>
+          <div class="unit-meta" id="meta-unit1">الملف: unit1.html</div>
+          <a class="btn btn-primary" href="unit1.html" onclick="return AxisLinker.openUnit('unit1.html', event)">دخول الوحدة الأولى ←</a>
+        </div>
+      </div>
+
+      <div class="unit-card">
+        <div>
+          <span class="unit-badge">الوحدة الثانية</span>
+          <h2>التيار المتردد (المتناوب)</h2>
+          <p>المولد الكهربائي، القيمة الفعالة، المفاعلة الحثية والسعوية، المعاوقة، والرنين الكهربائي.</p>
+        </div>
+        <div>
+          <div class="unit-meta" id="meta-unit2">الملف: unit2.html</div>
+          <a class="btn btn-primary" href="unit2.html" onclick="return AxisLinker.openUnit('unit2.html', event)">دخول الوحدة الثانية ←</a>
+        </div>
+      </div>
+
+      <div class="unit-card">
+        <div>
+          <span class="unit-badge">الوحدة الثالثة</span>
+          <h2>الإلكترونيات</h2>
+          <p>أشباه الموصلات، الوصلة الثنائية (الدايود)، الترانزستور وتكبير الإشارة، والبوابات المنطقية.</p>
+        </div>
+        <div>
+          <div class="unit-meta" id="meta-unit3">الملف: unit3.html</div>
+          <a class="btn btn-primary" href="unit3.html" onclick="return AxisLinker.openUnit('unit3.html', event)">دخول الوحدة الثالثة ←</a>
+        </div>
+      </div>
+
+      <div class="unit-card">
+        <div>
+          <span class="unit-badge">الوحدة الرابعة</span>
+          <h2>الفيزياء الذرية والنووية</h2>
+          <p>مستويات الطاقة والليزر، النشاط الإشعاعي، عمر النصف، والانشطار والاندماج النووي.</p>
+        </div>
+        <div>
+          <div class="unit-meta" id="meta-unit4">الملف: unit4.html</div>
+          <a class="btn btn-primary" href="unit4.html" onclick="return AxisLinker.openUnit('unit4.html', event)">دخول الوحدة الرابعة ←</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="kuraimi-box">
+      <h3>💳 الاشتراك والتفعيل عبر مصرف الكريمي</h3>
+      <p style="margin:0 0 10px;">
+        للإيداع لحساب <strong>عمر حسن محمد عود إبراهيم (الأستاذ عمر حسان عبره)</strong>:
+        داخل اليمن على الرقم <strong>737219181</strong> — ومن خارج اليمن بإضافة مفتاح البلد <strong>00967737219181</strong>.
+        بعد الإيداع أرسل اسمك وبصمة جهازك على واتساب لاستلام كود التفعيل.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <a class="btn btn-green" id="waPortalBtn" href="#" target="_blank" rel="noopener noreferrer">📲 مراسلة الأستاذ عمر عبر واتساب</a>
+        <a class="btn btn-gold" href="unit1.html">💳 فتح نافذة التفعيل داخل الوحدات</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div><strong>تصميم وتطوير: المطور الأستاذ عمر حسان عبره</strong> — منصة <strong>ثري دي اكسيس</strong></div>
+        <div style="opacity:0.9;">الكريمي داخل اليمن: <strong>737219181</strong> | من خارج اليمن: <strong>00967737219181</strong></div>
+      </div>
+      <div class="footer-actions">
+        <a class="btn btn-light" href="tel:+967737219181">📞 اتصال مباشر</a>
+        <a class="btn btn-green" href="https://wa.me/967737219181" target="_blank" rel="noopener noreferrer">💬 واتساب</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shared_link.js"></script>
+  <script>
+    AxisLinker.initPortal();
+  </script>
+</body>
+</html>
