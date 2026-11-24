@@ -1,1 +1,1256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ثري دي اكسيس | فيزياء ثالث ثانوي - الأستاذ عمر حسان عبره</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --ink: #132238;
+      --muted: #52647a;
+      --primary: #0f4c81;
+      --primary-2: #1976d2;
+      --accent: #0d9488;
+      --gold: #d97706;
+      --ok: #15803d;
+      --err: #b91c1c;
+      --border: #dce5f0;
+      --shadow: 0 8px 24px rgba(19, 34, 56, 0.07);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+      background: linear-gradient(180deg, #eef4fb 0%, var(--bg) 100%);
+      color: var(--ink);
+      line-height: 1.75;
+    }
+    header.topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(135deg, #0b2d4d 0%, var(--primary) 65%, var(--primary-2) 100%);
+      color: #fff;
+      padding: 8px 14px;
+      box-shadow: 0 3px 14px rgba(11, 45, 77, 0.22);
+    }
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .brand h1 { margin: 0; font-size: 1rem; font-weight: 800; }
+    .brand small { display: block; font-size: 0.76rem; opacity: 0.9; }
+    .menu-toggle-btn {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 12px;
+      font-size: 0.84rem;
+      border-radius: 9px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tools-drawer {
+      max-width: 1180px;
+      margin: 8px auto 0;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      display: none;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: flex-end;
+    }
+    .tools-drawer.open { display: flex; }
 
+    button, .btn-link {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      border-radius: 9px;
+      padding: 7px 12px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.12s ease, opacity 0.15s ease;
+    }
+    button:hover, .btn-link:hover { transform: translateY(-1px); }
+    .btn-light { background: #fff; color: var(--primary); }
+    .btn-gold { background: #fbbf24; color: #1f2937; }
+    .btn-teal { background: #0d9488; color: #fff; }
+    .btn-purple { background: #7c3aed; color: #fff; }
+    .btn-red { background: #dc2626; color: #fff; }
+    .btn-blue { background: #2563eb; color: #fff; }
+    .btn-green { background: #16a34a; color: #fff; }
+    .btn-outline {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 14px auto 28px;
+      padding: 0 12px;
+    }
+    .status-strip {
+      background: #fffbeb;
+      border: 1.5px solid #f59e0b;
+      border-radius: 12px;
+      padding: 9px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .status-strip.warn { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
+    .status-strip.pro { background: #ecfdf5; border-color: #10b981; color: #065f46; }
+
+    .progress-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .bar-wrap {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 20%;
+      background: linear-gradient(90deg, var(--accent), var(--primary-2));
+      transition: width 0.35s ease;
+    }
+    .page-dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .dot-btn {
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      background: #eef2f7;
+      color: var(--ink);
+    }
+    .dot-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .book-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.22s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .lesson-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+    .lesson-title { margin: 0; font-size: 1.32rem; color: var(--primary); }
+    .lesson-btns { display: flex; flex-wrap: wrap; gap: 7px; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 880px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 13px;
+      padding: 14px;
+      margin-bottom: 13px;
+    }
+    .panel h3 { margin: 0 0 8px; font-size: 1.02rem; color: var(--primary); }
+    .law-box {
+      background: #eff6ff;
+      border-right: 4px solid var(--primary-2);
+      padding: 10px 13px;
+      border-radius: 9px;
+      margin: 10px 0 0;
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+    .sim-box {
+      background: #081324;
+      color: #f8fafc;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      border: 1px solid #1e3a5f;
+    }
+    .sim-box h3 { margin: 0 0 8px; color: #5eead4; font-size: 1rem; }
+    canvas {
+      width: 100%;
+      height: 270px;
+      background: #0b1b33;
+      border-radius: 10px;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+    .axis-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.78rem;
+      margin-top: 7px;
+      color: #cbd5e1;
+    }
+    .axis-pill {
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+      font-weight: 700;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 0.84rem;
+    }
+    .controls label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.08);
+      padding: 5px 9px;
+      border-radius: 8px;
+    }
+
+    .extra-drawer {
+      margin-top: 10px;
+      padding: 13px;
+      border-radius: 12px;
+      display: none;
+    }
+    .extra-drawer.open { display: block; }
+    .drawer-simple { background: #fefce8; border: 1px solid #fde047; color: #422006; }
+    .drawer-amazing {
+      background: linear-gradient(135deg, #fdf2f8 0%, #eff6ff 50%, #ecfdf5 100%);
+      border: 2px solid #8b5cf6;
+      color: #1e1b4b;
+    }
+    .drawer-media { background: #f0f9ff; border: 2px solid #0284c7; color: #0c4a6e; }
+    .amazing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .amazing-chip {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid #ddd6fe;
+      font-size: 0.89rem;
+    }
+    .media-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .career-tag {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+    }
+    .q-card {
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 12px;
+      margin-top: 8px;
+    }
+    .opt-btn {
+      display: block;
+      width: 100%;
+      text-align: right;
+      margin-top: 6px;
+      background: #f1f5f9;
+      color: var(--ink);
+      border: 1px solid #cbd5e1;
+    }
+    .opt-btn.correct { background: #dcfce7; border-color: var(--ok); color: #14532d; }
+    .opt-btn.wrong { background: #fee2e2; border-color: var(--err); color: #7f1d1d; }
+    .pager {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 13px;
+      border-top: 2px solid #edf2f7;
+    }
+    .btn-nav { background: var(--primary); color: #fff; padding: 9px 16px; font-size: 0.92rem; }
+    .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.72);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 12px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: #fff;
+      color: var(--ink);
+      width: 100%;
+      max-width: 820px;
+      max-height: 88vh;
+      overflow-y: auto;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+    .modal-head h2 { margin: 0; font-size: 1.1rem; color: var(--primary); }
+    .close-x { background: #fee2e2; color: #991b1b; }
+    .chat-log {
+      max-height: 250px;
+      overflow-y: auto;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 11px;
+      padding: 11px;
+      margin-bottom: 10px;
+    }
+    .msg { padding: 8px 12px; border-radius: 10px; margin-bottom: 8px; font-size: 0.9rem; white-space: pre-line; }
+    .msg.bot { background: #e0f2fe; color: #0c4a6e; }
+    .msg.user { background: #dcfce7; color: #14532d; text-align: left; }
+    .solution-box {
+      background: #f0fdf4;
+      border-right: 4px solid var(--ok);
+      padding: 11px 13px;
+      border-radius: 9px;
+      margin-top: 9px;
+      display: none;
+      font-size: 0.92rem;
+      line-height: 1.85;
+    }
+    .solution-box.show { display: block; }
+    .step-line { margin-bottom: 5px; }
+
+    .confirm-box {
+      background: #fff7ed;
+      border: 2px solid #ea580c;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .receipt-box {
+      background: #dcfce7;
+      border: 2px solid #15803d;
+      color: #14532d;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 12px;
+      display: none;
+      font-weight: 700;
+    }
+
+    /* التذييل الموحد لكل وحدة */
+    footer.unit-footer {
+      background: linear-gradient(135deg, #0b2d4d, #0f4c81);
+      color: #fff;
+      padding: 18px 14px;
+      margin-top: 32px;
+      border-top: 4px solid #fbbf24;
+    }
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+    }
+    .footer-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <h1>ثري دي اكسيس — فيزياء ثالث ثانوي (الوحدة الأولى)</h1>
+        <small>إعداد وتطوير: المطور الأستاذ عمر حسان عبره | 967737219181</small>
+      </div>
+      <button class="menu-toggle-btn" id="menuToggleBtn" onclick="toggleTopTools()">☰ أدوات الكتاب والتقويم</button>
+    </div>
+    <div class="tools-drawer" id="topToolsDrawer">
+      <a class="btn-link btn-light" href="index.html">🏠 فهرس الوحدات</a>
+      <button class="btn-light" onclick="openOriginalBook()">📖 الكتاب الأصلي للدرس</button>
+      <button class="btn-gold" onclick="openUnitReview()">✅ حل تقويم الوحدة الكامل</button>
+      <button class="btn-teal" onclick="openTeacherChat()">🤖 المدرس الذكي (Pollinations AI)</button>
+      <button class="btn-gold" onclick="openPaymentModal(false)">💳 الدفع والتفعيل (967737219181)</button>
+      <button class="btn-outline" id="soundToggleBtn" onclick="toggleSound()">🔊 الصوت: مفعّل</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="status-strip" id="trialStrip">
+      <span id="trialLabel">جارٍ فحص حالة النسخة...</span>
+      <button class="btn-gold" onclick="openPaymentModal(false)">💳 الاشتراك / تأكيد الإيداع</button>
+    </div>
+
+    <div class="progress-box">
+      <div class="progress-top">
+        <span id="pageIndicator">الصفحة 1 من 5</span>
+        <span id="scoreBadge">نقاط التفاعل: 0 ⭐</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill" id="progressFill"></div></div>
+      <div class="page-dots" id="pageDots"></div>
+    </div>
+
+    <main class="book-card" id="bookContainer"></main>
+  </div>
+
+  <!-- التذييل الموحد لكل وحدة -->
+  <footer class="unit-footer">
+    <div class="footer-inner">
+      <div>
+        <div><strong>تصميم وتطوير: المطور الأستاذ عمر حسان عبره</strong> — منصة <strong>ثري دي اكسيس</strong> التعليمية</div>
+        <div style="opacity:0.9;">رقم التواصل والإيداع: <strong>967737219181</strong> | المنهج اليمني — ثالث ثانوي (بالرموز العربية)</div>
+      </div>
+      <div class="footer-actions">
+        <a class="btn-link btn-light" href="tel:+967737219181">📞 اتصال مباشر</a>
+        <a class="btn-link btn-green" href="https://wa.me/967737219181?text=السلام%20عليكم%20أستاذ%20عمر%20حسان%20عبره" target="_blank" rel="noopener noreferrer">💬 واتساب مباشر</a>
+        <button class="btn-link btn-gold" onclick="openPaymentModal(false)">💳 اشتراك ودفع</button>
+        <a class="btn-link btn-outline" href="index.html">🏠 الرئيسية</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- نافذة الكتاب الأصلي / التقويم / المدرس الذكي -->
+  <div class="modal-backdrop" id="modalBackdrop" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-head">
+        <h2 id="modalTitle">عنوان النافذة</h2>
+        <button class="close-x" onclick="closeModal()">✕ إغلاق</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- نافذة الدفع وتأكيد رقم الإيداع واستلام الطلب -->
+  <div class="modal-backdrop" id="paymentBackdrop">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="payModalTitle">💳 الدفع وتأكيد الإيداع وتفعيل الاشتراك</h2>
+        <button class="close-x" id="closePayModalBtn" onclick="closePaymentModal()">✕ إغلاق</button>
+      </div>
+
+      <p style="margin:0 0 8px;">
+        • اسم المستفيد: <strong>المطور الأستاذ عمر حسان عبره</strong><br>
+        • رقم حساب / رقم الإيداع المعتمد: <strong style="color:#0f4c81;font-size:1.05rem;">967737219181</strong><br>
+        • بصمة جهازك الحالية: <strong id="fpValue"></strong>
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+        <div>
+          <label style="font-size:0.84rem;font-weight:700;">اسم الطالب / المشتري:</label>
+          <input type="text" id="buyerName" placeholder="اكتب اسمك الثلاثي" style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid #cbd5e1;font-family:inherit;" />
+        </div>
+        <div>
+          <label style="font-size:0.84rem;font-weight:700;">نوع الاشتراك:</label>
+          <select id="planType" style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid #cbd5e1;font-family:inherit;">
+            <option value="شهري">اشتراك شهري</option>
+            <option value="سنوي">اشتراك سنوي</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="confirm-box">
+        <div style="font-weight:800;color:#9a3412;">⚠️ تنبيه وتأكيد رقم الإيداع:</div>
+        <div style="margin-top:4px;font-size:0.9rem;">
+          الرقم المخصص للإيداع هو: <strong>967737219181</strong> باسم <strong>الأستاذ عمر حسان عبره</strong>.
+          <strong>هل هذا هو الرقم الذي أودعت له؟</strong>
+        </div>
+        <label style="display:flex;align-items:center;gap:7px;margin-top:8px;font-weight:800;cursor:pointer;">
+          <input type="checkbox" id="confirmTargetNum" />
+          <span>نعم، أؤكد أن هذا الرقم (967737219181) هو الرقم الذي أودعت له بالفعل.</span>
+        </label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+          <button class="btn-green" onclick="submitDepositRequest()">✅ تأكيد الإيداع وتسجيل الطلب</button>
+          <a class="btn-link btn-blue" id="waConfirmLink" href="#" target="_blank" rel="noopener noreferrer">📲 إرسال تفاصيل الإيداع لواتساب 967737219181</a>
+        </div>
+      </div>
+
+      <div class="receipt-box" id="receiptConfirmationBox"></div>
+
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid #e2e8f0;">
+        <label style="font-weight:700;">إدخال كود التفعيل (بعد استلامه من الأستاذ عمر):</label>
+        <div style="display:flex;gap:8px;margin-top:6px;">
+          <input type="text" id="unlockCodeInput" placeholder="أدخل كود التفعيل هنا..." style="flex:1;padding:9px 12px;border-radius:9px;border:1px solid #cbd5e1;font-family:inherit;" />
+          <button class="btn-teal" onclick="applyUnlockCode()">تفعيل الآن</button>
+        </div>
+        <div id="unlockStatusMsg" style="font-weight:700;margin-top:6px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    const TRIAL_DAYS = 7;
+    const TARGET_PHONE = "967737219181";
+
+    function getDeviceFp() {
+      let fp = localStorage.getItem("3daxis_fp");
+      if (!fp) {
+        const raw = [navigator.userAgent, screen.width + "x" + screen.height, Math.floor(1000 + Math.random() * 9000)].join("|");
+        let h = 0;
+        for (let i = 0; i < raw.length; i++) h = ((h << 5) - h) + raw.charCodeAt(i);
+        fp = "AX-" + Math.abs(h).toString(36).toUpperCase().slice(0, 6);
+        localStorage.setItem("3daxis_fp", fp);
+      }
+      if (!localStorage.getItem("3daxis_first_run")) {
+        localStorage.setItem("3daxis_first_run", Date.now().toString());
+      }
+      return fp;
+    }
+
+    function checkAccessStatus() {
+      const fp = getDeviceFp();
+      document.getElementById("fpValue").textContent = fp;
+      const now = Date.now();
+      const subUntil = Number(localStorage.getItem("3daxis_sub_until") || 0);
+      const firstRun = Number(localStorage.getItem("3daxis_first_run") || now);
+      const strip = document.getElementById("trialStrip");
+      const label = document.getElementById("trialLabel");
+
+      if (subUntil > now) {
+        const daysLeft = Math.ceil((subUntil - now) / DAY_MS);
+        strip.className = "status-strip pro";
+        label.textContent = `✅ الاشتراك مفعّل — متبقي ${daysLeft} يوماً`;
+        return true;
+      }
+
+      const rem = Math.ceil(TRIAL_DAYS - ((now - firstRun) / DAY_MS));
+      if (rem <= 0) {
+        strip.className = "status-strip warn";
+        label.textContent = "⛔ انتهت الفترة التجريبية (٧ أيام). يرجى تأكيد الإيداع وتفعيل الاشتراك.";
+        openPaymentModal(true);
+        return false;
+      } else if (rem <= 3) {
+        strip.className = "status-strip warn";
+        label.textContent = `⚠️ تنبيه: سيتوقف البرنامج التجريبي خلال ${rem} أيام! بادر بالاشتراك.`;
+        return true;
+      } else {
+        strip.className = "status-strip";
+        label.textContent = `🎁 نسخة تجريبية مجانية — متبقي ${rem} أيام من أصل ٧ أيام`;
+        return true;
+      }
+    }
+
+    function openPaymentModal(locked) {
+      document.getElementById("paymentBackdrop").classList.add("open");
+      document.getElementById("closePayModalBtn").style.display = locked ? "none" : "inline-flex";
+      document.getElementById("payModalTitle").textContent = locked
+        ? "⛔ انتهت الفترة التجريبية — يرجى إتمام الإيداع والتفعيل"
+        : "💳 الدفع وتأكيد الإيداع وتفعيل الاشتراك";
+      updateWaConfirmLink();
+    }
+
+    function closePaymentModal() {
+      document.getElementById("paymentBackdrop").classList.remove("open");
+    }
+
+    function updateWaConfirmLink() {
+      const name = document.getElementById("buyerName").value.trim() || "طالب / مشتري";
+      const plan = document.getElementById("planType").value;
+      const fp = getDeviceFp();
+      const msg = `السلام عليكم أستاذ عمر حسان عبره، أنا (${name}) أؤكد أنني أودعت إلى الرقم (${TARGET_PHONE}) لاشتراك (${plan}). بصمة جهازي: ${fp}`;
+      document.getElementById("waConfirmLink").href = `https://wa.me/${TARGET_PHONE}?text=${encodeURIComponent(msg)}`;
+    }
+
+    function submitDepositRequest() {
+      const checked = document.getElementById("confirmTargetNum").checked;
+      const name = document.getElementById("buyerName").value.trim() || "مستخدم";
+      const plan = document.getElementById("planType").value;
+      const fp = getDeviceFp();
+      const box = document.getElementById("receiptConfirmationBox");
+
+      if (!checked) {
+        box.style.display = "block";
+        box.style.background = "#fee2e2";
+        box.style.borderColor = "#b91c1c";
+        box.style.color = "#7f1d1d";
+        box.innerHTML = `❌ يرجى أولاً الإجابة والتأكيد على السؤال: <strong>هل هذا هو الرقم (967737219181) الذي أودعت له؟</strong>`;
+        return;
+      }
+
+      updateWaConfirmLink();
+      const orderRef = "ORD-" + Math.floor(100000 + Math.random() * 899999);
+      box.style.display = "block";
+      box.style.background = "#dcfce7";
+      box.style.borderColor = "#15803d";
+      box.style.color = "#14532d";
+      box.innerHTML = `
+        ✅ <strong>تم استلام طلبك بنجاح!</strong><br>
+        • رقم المرجع: <strong>${orderRef}</strong> | الاسم: <strong>${name}</strong> | الباقة: <strong>${plan}</strong><br>
+        • تم تأكيد الإيداع على الرقم: <strong>967737219181</strong> | بصمة الجهاز: <strong>${fp}</strong><br>
+        • أرسل تفاصيل الطلب عبر واتساب إلى <strong>967737219181</strong> لتسلم كود التفعيل فوراً.
+      `;
+    }
+
+    function computeCode(fp, planCode) {
+      let sum = 0;
+      const str = fp + "_" + planCode + "_OMAR_EBRAH_967737219181";
+      for (let i = 0; i < str.length; i++) sum += str.charCodeAt(i) * (i + 5);
+      return `AX-${planCode}-${(sum % 8999) + 1000}`;
+    }
+
+    function applyUnlockCode() {
+      const fp = getDeviceFp();
+      const code = document.getElementById("unlockCodeInput").value.trim().toUpperCase();
+      const msg = document.getElementById("unlockStatusMsg");
+      if (code === computeCode(fp, "M")) {
+        localStorage.setItem("3daxis_sub_until", (Date.now() + 30 * DAY_MS).toString());
+        msg.style.color = "#15803d";
+        msg.textContent = "✅ تم تفعيل الاشتراك الشهري (٣٠ يوماً) بنجاح!";
+        setTimeout(() => { closePaymentModal(); checkAccessStatus(); }, 800);
+      } else if (code === computeCode(fp, "Y")) {
+        localStorage.setItem("3daxis_sub_until", (Date.now() + 365 * DAY_MS).toString());
+        msg.style.color = "#15803d";
+        msg.textContent = "✅ تم تفعيل الاشتراك السنوي (٣٦٥ يوماً) بنجاح!";
+        setTimeout(() => { closePaymentModal(); checkAccessStatus(); }, 800);
+      } else {
+        msg.style.color = "#b91c1c";
+        msg.textContent = "❌ كود التفعيل غير مطابق لبصمة هذا الجهاز.";
+      }
+    }
+
+    const state = {
+      pageIndex: 0,
+      score: 0,
+      soundEnabled: true,
+      answered: {},
+      chatHistory: [
+        {
+          from: "bot",
+          text: "أهلاً بك يا بني في كتاب الفيزياء التفاعلي بإشراف الأستاذ عمر حسان عبره (967737219181). اسألني أي سؤال في الدرس الحالي وسأجيبك عبر الذكاء الاصطناعي."
+        }
+      ]
+    };
+
+    const lessons = [
+      {
+        id: "collision",
+        title: "١. كمية التحرك والتصادم في بُعدين",
+        subtitle: "حفظ كمية التحرك الخطي (كت = ك × ع) وتحليل الحركة على المحورين السيني والصادي",
+        law: "على محور السينات: ك₁ ع₁ + ك₂ ع₂ = ك₁ ع′₁ جتا هـ₁ + ك₂ ع′₂ جتا هـ₂  |  على محور الصادات: ك₁ ع′₁ جا هـ₁ − ك₂ ع′₂ جا هـ₂ = 0",
+        summary: "عندما تصطدم كرتان أو مركبتان ولا يتطابق مساراهما بعد التصادم على خط واحد، نحتاج لتحليل كمية التحرك إلى مركبتين أفقية (س) ورأسية (ص) لأن كمية التحرك (كت) كمية متجهة.",
+        simpleExplain: "تخيل كرتي بلياردو: تندفع الكرة الأولى وتصطدم بكرة ساكنة فتبتعد كل منهما بزاوية عن الخط الأصلي. لأن كمية التحرك لها مقدار واتجاه، نحسب مجموع كمية التحرك يميناً ويساراً (محور س) ومجموعها أعلى وأسفل (محور ص) قبل التصادم وبعده.",
+        career: "مهندس التحقيق في الحوادث المرورية والميكانيكا",
+        careerDesc: "يستخدم قوانين حفظ كمية التحرك في بُعدين لحساب سرعات المركبات وزوايا انحراف الحطام بعد التصادم وتحليل متانة الهياكل المعدنية.",
+        media: [
+          { label: "🎬 أنيميشن 3D: التصادم المرن وغير المرن", url: "https://www.youtube.com/watch?v=i4RmtjPzDkY", type: "yt" },
+          { label: "🎬 محاكاة بصرية: التصادمات وحفظ الزخم", url: "https://www.youtube.com/watch?v=Xe2r6wey26E", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: التصادم في بُعدين", url: "https://phet.colorado.edu/sims/html/collision-lab/latest/collision-lab_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "كرات البلياردو والتصادم المرن", d: "في التصادم المرن تتبادل الكرات المتساوية في الكتلة السرعات وتنطلق بزاويتين متعامدتين (هـ₁ + هـ₂ = ٩٠°) إذا كانت إحداهما ساكنة." },
+          { t: "الوسائد الهوائية ومناطق التهشم", d: "زيادة زمن التلامس (Δز) أثناء التصادم تقلل من متوسط قوة الصدمة المؤثرة على الركاب." },
+          { t: "تصادم الكويكبات في الفضاء", d: "تُستخدم حسابات الزخم في بُعدين لتقدير انحراف مسارات الأجرام السماوية عند اصطدامها." }
+        ],
+        originalText: `
+          <p><strong>كمية التحرك:</strong> كمية التحرك الخطي لجسم كتلته (ك) وسرعته (ع) هي: <strong>كت = ك × ع</strong>، وتُقاس بـ (كجم . م/ث).</p>
+          <p><strong>مبدأ حفظ كمية التحرك الخطي:</strong> مجموع كمية التحرك الكلية للأجسام المتصادمة قبل التصادم = مجموع كمية التحرك الكلية لها بعد التصادم (في نظام معزول).</p>
+          <p><strong>التصادم في بُعدين:</strong> نحلل كمية التحرك على محور السينات (س) ومحور الصادات (ص) لمرن وغير مرن.</p>
+        `,
+        quiz: {
+          q: "سؤال وزاري: في تصادم غير مرن بين سيارتين في تقاطع، أي العبارات التالية صحيحة؟",
+          opts: [
+            "كمية التحرك محفوظة والطاقة الحركية تبقى ثابتة تماماً",
+            "كمية التحرك محفوظة بينما تفقد جزءاً من الطاقة الحركية",
+            "كمية التحرك لا تُحفظ لأن التصادم غير مرن"
+          ],
+          ans: 1,
+          why: "في جميع التصادمات (مرنة أو غير مرنة) تظل كمية التحرك الكلية محفوظة في نظام معزول، لكن في التصادم غير المرن تُفقد جزء من الطاقة الحركية."
+        }
+      },
+      {
+        id: "rockets",
+        title: "٢. الصواريخ ذاتية الدفع",
+        subtitle: "انطلاق الصواريخ وفق قانون حفظ كمية التحرك ومبدأ الفعل ورد الفعل",
+        law: "دفع الصاروخ = − (دفع الغازات)  ⇒  ق محرك × Δز = − (ك غازات × ع غازات)",
+        summary: "يقذف الصاروخ غازات ساخنة بسرعة عالية نحو الأسفل، فتتولد قوة رد فعل تدفع الصاروخ نحو الأعلى، ويعمل الصاروخ بكفاءة أفضل في الفضاء لانعدام مقاومة الهواء.",
+        simpleExplain: "عند نفخ بالونة وتركها دون ربط فوهتها، يندفع الهواء للخلف بقوة فتتحرك البالونة للأمام في الاتجاه المعاكس. الصاروخ يعمل بالمبدأ نفسه عبر قذف الغازات الساخنة من محركه للأسفل فيندفع هو للأعلى.",
+        career: "مهندس الدفع الفضائي وهندسة المحركات والحراريات",
+        careerDesc: "يعمل في تصميم فوهات الدفع ومراقبة معدل تدفق الغازات وسرعتها، واختيار السبائك المقاومة للحرارة والضغط العالي.",
+        media: [
+          { label: "🎬 أنيميشن 3D: كيف ينطلق الصاروخ في الفضاء؟", url: "https://www.youtube.com/watch?v=lddKvb2JgHo", type: "yt" },
+          { label: "🎬 محاكاة بصرية: فيزياء دفع الصواريخ والكتلة", url: "https://www.youtube.com/watch?v=CrWSFL01qV0", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: القوى والحركة", url: "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "لماذا يعمل الصاروخ في الفراغ؟", d: "الصاروخ لا يدفع الهواء الخارجي؛ بل يدفع غازاته المنبعثة من محركه، لذا يعمل في الفضاء بكفاءة أعلى لغياب مقاومة الهواء." },
+          { t: "محطات تاريخية في الفضاء", d: "أُطلق القمر الصناعي (سبوتنيك ١) في ٤ أكتوبر ١٩٥٧م، وتلاه (سبوتنيك ٢)، ثم (المستكشف) عام ١٩٥٨م، وهبط الإنسان على القمر عام ١٩٦٩م." },
+          { t: "الصواريخ متعددة المراحل", d: "تُفصل المراحل الفارغة أثناء الصعود لتقليل الكتلة الكلية وزيادة تسارع الصاروخ نحو المدار." }
+        ],
+        originalText: `<p><strong>الصواريخ ذاتية الدفع:</strong> تعمل طبقاً لقانون حفظ كمية التحرك الخطي ومبدأ الفعل ورد الفعل حيث تتولد قوة رد فعل من انطلاق غازات عالية السرعة.</p>`,
+        quiz: {
+          q: "سؤال وزاري: لماذا يُعد الصاروخ ذاتي الدفع قادراً على العمل في الفضاء الخارجي حيث ينعدم الهواء؟",
+          opts: [
+            "لأنه يعتمد على دفع الغازات المنبعثة منه وفق حفظ كمية التحرك والفعل ورد الفعل",
+            "لأن الجاذبية تنعدم تماماً بمجرد الخروج من الغلاف الجوي",
+            "لأنه يسبح في الهواء المضغوط خارج الأرض"
+          ],
+          ans: 0,
+          why: "الصاروخ يستمد دفعه من رد فعل الغازات المندفعة من محركه، ولا يحتاج إلى وسط هوائي ليدفعه."
+        }
+      },
+      {
+        id: "escape",
+        title: "٣. سرعة الإفلات من الجاذبية",
+        subtitle: "السرعة اللازمة لتحرر جسم من نطاق جاذبية كوكب أو جرم سماوي",
+        law: "١/٢ ك ع² = ك ء نق  ⇒  ع = √(٢ ء نق)   |   للكرة الأرضية: ع ≈ ١١٫٢ كم/ث",
+        summary: "إذا أُطلق جسم رأسياً بسرعة ١١٫٢ كم/ث من سطح الأرض فإنه يفلت من جاذبيتها ولا يعود، بينما يتطلب المدار الدائري القريب سرعة أفقية تقارب ٨ كم/ث.",
+        simpleExplain: "كلما رميت حجراً للأعلى بسرعة أكبر ارتفع مسافة أطول قبل أن تجذبه الأرض. وإذا أعطيناه سرعة هائلة تبلغ ١١٫٢ كم/ث (بإهمال مقاومة الهواء) فإنه يتغلب على جاذبية الأرض ويفلت إلى الفضاء.",
+        career: "مهندس المدارات والرحلات الفضائية والفلك التطبيقي",
+        careerDesc: "يحسب السرعات والطاقات اللازمة لإطلاق المسابير الفضائية نحو القمر والكواكب وتصميم مراحل الإطلاق بدقة.",
+        media: [
+          { label: "🎬 أنيميشن 3D: الجاذبية وسرعة الإفلات", url: "https://www.youtube.com/watch?v=J0-iKlRxnW4", type: "yt" },
+          { label: "🎬 رسوم متحركة: سرعة الإفلات والسرعة المدارية", url: "https://www.youtube.com/watch?v=hUJb35RGpY8", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: الجاذبية والمدارات", url: "https://phet.colorado.edu/sims/html/gravity-and-orbits/latest/gravity-and-orbits_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "سرعات الإفلات في المجموعة الشمسية", d: "القمر ≈ ٢٫٤ كم/ث، المريخ ≈ ٥ كم/ث، الأرض ≈ ١١٫٢ كم/ث، والمشتري ≈ ٦٠٫٢ كم/ث." },
+          { t: "طاقة الإفلات لكل كيلوجرام", d: "تساوي طاقة الحركة المطلوبة للانطلاق نحو ٦٢ مليون جول لكل كيلوجرام من سطح الأرض (بإهمال مقاومة الهواء)." },
+          { t: "لماذا يصعب الإفلات من المشتري؟", d: "لكبر كتلته ونصف قطره وقوة جاذبيته مقارنة بالأرض." }
+        ],
+        originalText: `<p><strong>سرعة الإفلات من الجاذبية:</strong> السرعة الرأسية اللازمة لتحرر جسم من نطاق جاذبية الأرض ولا يعود وتساوي نحو ١١٫٢ كم/ث.</p>`,
+        quiz: {
+          q: "سؤال وزاري: تساوي سرعة الإفلات من الجاذبية الأرضية تقريباً:",
+          opts: ["٨ كم/ث", "١١٫٢ كم/ث", "٢٫٤ كم/ث"],
+          ans: 1,
+          why: "بتطبيق ع = √(٢ ء نق) للأرض نجد سرعة الإفلات تساوي ١١٫٢ كم/ث."
+        }
+      },
+      {
+        id: "satellites",
+        title: "٤. حركة الأقمار الصناعية والسرعة المدارية",
+        subtitle: "توازن قوة الجذب المركزي مع القوة الطاردة المركزية واستمرار الدوران",
+        law: "ع = √(جـ × ك أرض / نق)   حيث: نق = نق أرض + ل (الارتفاع)",
+        summary: "يدور القمر الصناعي في مدار دائري لأن الجاذبية تعمل عمودياً على اتجاه حركته فتغير اتجاه السرعة دون تغيير مقدارها، وكلما اقترب المدار زادت سرعته المدارية.",
+        simpleExplain: "عندما نربط كرة بخيط ونديرها في دائرة، يشدها الخيط نحو المركز باستمرار لكنها تتحرك عمودياً على الخيط فتدور دون أن تسقط في اليد. الجاذبية الأرضية تقوم بدور الخيط مع القمر الصناعي.",
+        career: "مهندس الاتصالات الفضائية والاستشعار عن بُعد",
+        careerDesc: "يحدد ارتفاع المدار وسرعة القمر الصناعي لتغطية مناطق البث، والطقس، والملاحة، ومراقبة سطح الأرض بدقة.",
+        media: [
+          { label: "🎬 أنيميشن: السرعة المدارية وحركة الأقمار", url: "https://www.youtube.com/watch?v=2UPEHvRY3no", type: "yt" },
+          { label: "🎬 توضيح بصري: المدارات والجاذبية الأرضية", url: "https://www.youtube.com/watch?v=tgHsjvSWQe8", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: مدارات الأقمار الصناعية", url: "https://phet.colorado.edu/sims/html/gravity-and-orbits/latest/gravity-and-orbits_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "حقيقة الجاذبية في المدار", d: "الجاذبية ليست منعدمة في مدار القمر الصناعي؛ بل هي التي تُبقيه في مداره." },
+          { t: "زمن الدورة للمدارات القريبة", d: "أقرب قمر صناعي لسطح الأرض يحتاج إلى نحو ٩٠ دقيقة ليكمل دورة كاملة حول الأرض." },
+          { t: "الارتفاع فوق مقاومة الهواء", d: "تُوضع الأقمار على ارتفاع يفوق ١٥٠ كم لتجنب احتكاك الهواء العنيف." }
+        ],
+        originalText: `<p><strong>حركة الأقمار الصناعية:</strong> يدور القمر في مدار دائري وفق ع = √(جـ × ك أرض / نق) حيث نق = نق أرض + ل.</p>`,
+        quiz: {
+          q: "سؤال وزاري: لماذا لا يتغير مقدار سرعة القمر الصناعي في مساره الدائري المنتظم حول الأرض؟",
+          opts: [
+            "لأن قوة الجاذبية الأرضية تكون عمودية على اتجاه حركته",
+            "لأن كتلة القمر الصناعي تساوي صفراً في الفضاء",
+            "لأن السرعة المدارية لا تعتمد على نصف قطر المدار"
+          ],
+          ans: 0,
+          why: "القوة العمودية على اتجاه الحركة تغير اتجاه السرعة فقط ولا تغير مقدارها."
+        }
+      },
+      {
+        id: "angular_projectiles",
+        title: "٥. كمية التحرك الزاوي وحركة المقذوفات",
+        subtitle: "القصور الذاتي الدوراني وحفظ الزخم الزاوي + تحليل حركة المقذوفات",
+        law: "كمية التحرك الزاوي = I × ω = ك × ع × نق   |   المقذوف: ع س = ع جتا هـ ، ع ص = ع جا هـ + ء ز",
+        summary: "تُحفظ كمية التحرك الزاوي في غياب عزم دوران خارجي؛ وفي المقذوفات تكون الحركة الأفقية بسرعة منتظمة (ع س ثابتة) بينما تتأثر الحركة الرأسية بعجلة الجاذبية (ء).",
+        simpleExplain: "في الحركة الدورانية يقاوم الجسم تغيير دورانه (مثل عجلة الدراجة الدوارة). وفي المقذوفات تتكون الحركة من حركتين مستقلتين: حركة أفقية منتظمة وحركة رأسية تخضع للجاذبية.",
+        career: "مهندس الميكانيكا والملاحة والتحكم والتصميم الهندسي",
+        careerDesc: "يستفيد من حفظ الزخم الزاوي في اتزان المنظومات الدوارة، ومن معادلات المقذوفات في حساب المسارات والمدى والارتفاع.",
+        media: [
+          { label: "🎬 تجربة بصرية: الجيروسكوب وحفظ الزخم الزاوي", url: "https://www.youtube.com/watch?v=ty9QSiVC2g0", type: "yt" },
+          { label: "🎬 أنيميشن مبسط: كمية التحرك الزاوي", url: "https://www.youtube.com/watch?v=ho3VQy4wO4E", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: حركة المقذوفات", url: "https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "القصور الذاتي الدوراني ومحور الأرض", d: "مقاومة الجسم لتغيير حالته الدورانية تُبقي محور دوران الأرض ثابتاً نسبياً في الفضاء." },
+          { t: "استقلالية الحركتين الأفقية والرأسية", d: "حركة المقذوف محصلة حركتين مستقلتين: أفقية منتظمة (ء س = ٠) ورأسية متسارعة بتأثير الجاذبية (ء)." },
+          { t: "أقصى مدى أفقي", d: "عند إهمال مقاومة الهواء وعلى أرض أفقية مستوية، يتحقق أقصى مدى أفقي للمقذوف عندما تكون زاوية القذف ٤٥°." }
+        ],
+        originalText: `<p><strong>كمية التحرك الزاوي وحركة المقذوفات:</strong> تُحفظ كمية التحرك الزاوي في غياب عزم خارجي، وتُحلل المقذوفات إلى س و ص.</p>`,
+        quiz: {
+          q: "سؤال وزاري: في حركة المقذوفات بإهمال مقاومة الهواء، تكون العجلة على المحور الأفقي (ء س) مساوية لـ:",
+          opts: ["صفر، لأن الحركة الأفقية بسرعة منتظمة", "٩٫٨ م/ث² دائماً", "ضعف عجلة الجاذبية الأرضية"],
+          ans: 0,
+          why: "بإهمال مقاومة الهواء لا توجد قوة أفقية مؤثرة، فتكون العجلة الأفقية صفراً والسرعة الأفقية ثابتة."
+        }
+      }
+    ];
+
+    const unitReviewQuestions = [
+      {
+        q: "السؤال الأول (أ - ل) — ضع علامة (✓) أو (✕):",
+        a: `
+          <div class="step-line">• أ: (✕) الطاقة الحركية تبقى ثابتة في التصادم المرن فقط. | ب: (✓) | ج: (✓) | د: (✕) الفعل ورد الفعل ينطبق في الفضاء.</div>
+          <div class="step-line">• هـ: (✕) سرعة الإفلات ١١٫٢ كم/ث. | و: (✕) يجب أن تساوي طاقة الوضع أو تزيد عنها. | ز: (✓) | ح: (✕) عمودياً على الجاذبية.</div>
+          <div class="step-line">• ط: (✓) | ي: (✓) | ك: (✓) | ل: (✓).</div>
+        `
+      },
+      {
+        q: "السؤال الثاني: صاروخ كمية تحركه ٥ × ١٠⁸ كجم . م/ث وسرعته ٥ × ١٠³ م/ث، ما كتلته؟",
+        a: `<div class="step-line">ك = كت ÷ ع = (٥ × ١٠⁸) ÷ (٥ × ١٠³) = <strong>١ × ١٠⁵ كجم</strong>.</div>`
+      },
+      {
+        q: "السؤال الثالث: سرعة الإفلات ١١٫٢ كم/ث و ء = ٩٫٨ م/ث²، احسب نصف قطر الأرض (نق).",
+        a: `<div class="step-line">نق = ع² ÷ (٢ ء) = (١١٢٠٠)² ÷ (٢ × ٩٫٨) = <strong>٦٫٤ × ١٠⁶ م</strong> (٦٤٠٠ كم).</div>`
+      },
+      {
+        q: "السؤال الرابع: تصادم جزيئي غاز متساويي الكتلة، الأول سرعته ١٥٠٠ م/ث نحو الثاني الساكن، وانحرف الأول بزاوية ٣٠° متعامداً مع الثاني؛ احسب سرعتيهما بعد التصادم.",
+        a: `<div class="step-line">ع′₂ = <strong>٧٥٠ م/ث</strong> ، و ع′₁ = ٧٥٠√٣ ≈ <strong>١٢٩٩ م/ث</strong>.</div>`
+      },
+      {
+        q: "السؤال الخامس: عربة (٥ طن، ٣٦ كم/س شرقاً) تصطدم بعربة (٤ طن، ٧٢ كم/س شمالاً) وتلتصقان؛ احسب السرعة والزاوية والطاقة المفقودة.",
+        a: `<div class="step-line">ع₁ = ١٠ م/ث ، ع₂ = ٢٠ م/ث ⇒ ظا هـ = ١٫٦ ⇒ <strong>هـ = ٥٨°</strong> ، <strong>ع′ ≈ ١٠٫٤٨ م/ث</strong> ، الطاقة المفقودة ≈ <strong>٥٥٥٬٥٥٦ جول</strong>.</div>`
+      },
+      {
+        q: "السؤال السادس: احسب الارتفاع فوق سطح الأرض لقمر صناعي سرعته المدارية ٤ كم/ث.",
+        a: `<div class="step-line">نق = (٦٫٦٧ × ١٠⁻¹¹ × ٦ × ١٠²⁴) ÷ (٤٠٠٠)² = ٢٫٥ × ١٠⁷ م ⇒ ل = ٢٥٬٠٠٠ − ٦٬٤٠٠ = <strong>١٨٬٦٠٠ كم</strong> (١٫٨٦ × ١٠⁷ م).</div>`
+      },
+      {
+        q: "السؤال السابع: قذيفة سرعتها ٢٠٠√٢ م/ث بزاوية ٤٥° و ء = ١٠ م/ث²؛ أوجد الذروة، المدى، السرعة والارتفاع بعد ٣٥ ث.",
+        a: `<div class="step-line">الذروة = <strong>٢٠٠٠ م</strong> ، المدى = <strong>٨٠٠٠ م</strong> ، السرعة بعد ٣٥ ث = <strong>٢٥٠ م/ث</strong> ، الارتفاع بعد ٣٥ ث = <strong>٨٧٥ م</strong>.</div>`
+      },
+      {
+        q: "السؤال الثامن: مقذوف ذروته ٤٠ م ومداه ١٦٠√٣ م (ء = ١٠ م/ث²)؛ احسب الزاوية والسرعة الابتدائية.",
+        a: `<div class="step-line">ظا هـ = (٤ × ٤٠) ÷ (١٦٠√٣) = ١/√٣ ⇒ <strong>هـ = ٣٠°</strong> ، <strong>ع₀ = ٤٠√٢ ≈ ٥٦٫٥٧ م/ث</strong>.</div>`
+      }
+    ];
+
+    function toggleTopTools() {
+      document.getElementById("topToolsDrawer").classList.toggle("open");
+    }
+
+    function playTone(freq = 520, dur = 0.08) {
+      if (!state.soundEnabled) return;
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.frequency.value = freq;
+        gain.gain.value = 0.05;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        setTimeout(() => { osc.stop(); ctx.close(); }, dur * 1000);
+      } catch (e) {}
+    }
+
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      document.getElementById("soundToggleBtn").textContent = state.soundEnabled ? "🔊 الصوت: مفعّل" : "🔇 الصوت: مكتوم";
+    }
+
+    function addScore(pts) {
+      state.score += pts;
+      document.getElementById("scoreBadge").textContent = `نقاط التفاعل: ${state.score} ⭐`;
+    }
+
+    function renderProgress() {
+      const total = lessons.length;
+      document.getElementById("pageIndicator").textContent = `الصفحة ${state.pageIndex + 1} من ${total}`;
+      document.getElementById("progressFill").style.width = `${((state.pageIndex + 1) / total) * 100}%`;
+      const dots = document.getElementById("pageDots");
+      dots.innerHTML = "";
+      lessons.forEach((l, idx) => {
+        const b = document.createElement("button");
+        b.className = "dot-btn" + (idx === state.pageIndex ? " active" : "");
+        b.textContent = `درس ${idx + 1}`;
+        b.onclick = () => { playTone(460, 0.06); state.pageIndex = idx; renderPage(); };
+        dots.appendChild(b);
+      });
+    }
+
+    function renderPage() {
+      renderProgress();
+      const l = lessons[state.pageIndex];
+      const container = document.getElementById("bookContainer");
+
+      const optsHtml = l.quiz.opts.map((opt, i) => {
+        let cls = "opt-btn";
+        if (state.answered[l.id] !== undefined) {
+          if (i === l.quiz.ans) cls += " correct";
+          else if (i === state.answered[l.id]) cls += " wrong";
+        }
+        return `<button class="${cls}" onclick="answerQuiz('${l.id}', ${i}, ${l.quiz.ans})">${opt}</button>`;
+      }).join("");
+
+      const feedbackHtml = state.answered[l.id] !== undefined
+        ? `<p style="margin-top:8px;font-weight:700;color:#0f4c81;">💡 التوضيح: ${l.quiz.why}</p>`
+        : "";
+
+      const mediaHtml = l.media.map(m =>
+        `<a class="btn-link ${m.type === 'yt' ? 'btn-red' : 'btn-blue'}" href="${m.url}" target="_blank" rel="noopener noreferrer">${m.label} ↗</a>`
+      ).join("");
+
+      container.innerHTML = `
+        <div class="lesson-header">
+          <div>
+            <h2 class="lesson-title">${l.title}</h2>
+            <div style="color:var(--muted);font-size:0.9rem;">${l.subtitle}</div>
+          </div>
+          <div class="lesson-btns">
+            <button class="btn-gold" onclick="toggleDrawer('simpleDrawer')">💡 شرح مبسّط</button>
+            <button class="btn-purple" onclick="toggleDrawer('amazingDrawer')">🌈 توسّع مذهل</button>
+            <button class="btn-blue" onclick="toggleDrawer('mediaDrawer')">🎬 أنيميشن ومحاكاة</button>
+          </div>
+        </div>
+
+        <div class="extra-drawer drawer-simple" id="simpleDrawer">
+          <strong>💡 شرح مبسّط للفكرة:</strong>
+          <p style="margin:6px 0 0;">${l.simpleExplain}</p>
+        </div>
+
+        <div class="extra-drawer drawer-amazing" id="amazingDrawer">
+          <strong>✨ آفاق مذهلة مرتبطة بالدرس:</strong>
+          <div class="amazing-grid">
+            ${l.amazing.map(item => `<div class="amazing-chip"><strong>${item.t}</strong><br><span>${item.d}</span></div>`).join("")}
+          </div>
+        </div>
+
+        <div class="extra-drawer drawer-media" id="mediaDrawer">
+          <strong>🎬 مقاطع أنيميشن وتجارب حية عالمية (بدون سبورة) + مختبر PhET:</strong>
+          <div class="media-links">${mediaHtml}</div>
+        </div>
+
+        <div class="grid-2" style="margin-top:12px;">
+          <div>
+            <div class="panel">
+              <h3>📘 خلاصة الدرس والقانون بالرموز العربية</h3>
+              <p style="margin:0;">${l.summary}</p>
+              <div class="law-box">${l.law}</div>
+            </div>
+
+            <div class="panel">
+              <span class="career-tag">🛠️ معلم المهنة والربط التطبيقي</span>
+              <h3>${l.career}</h3>
+              <p style="margin:0;">${l.careerDesc}</p>
+            </div>
+
+            <div class="panel">
+              <h3>📝 سؤال وزاري تفاعلي على الدرس</h3>
+              <div class="q-card">
+                <div style="font-weight:700;">${l.quiz.q}</div>
+                ${optsHtml}
+                ${feedbackHtml}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="sim-box">
+              <h3>🔬 محاكاة حية بمحاور الأبعاد (س ، ص ، البُعد ٣)</h3>
+              <canvas id="simCanvas" width="520" height="270"></canvas>
+              <div class="axis-legend">
+                <span class="axis-pill" style="color:#f87171;">━ المحور السيني (س)</span>
+                <span class="axis-pill" style="color:#4ade80;">┃ المحور الصادي (ص)</span>
+                <span class="axis-pill" style="color:#c084fc;">╱ البُعد الثالث</span>
+              </div>
+              <div class="controls" id="simControls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pager">
+          <button class="btn-nav" onclick="prevPage()" ${state.pageIndex === 0 ? "disabled" : ""}>← الصفحة السابقة</button>
+          <button class="btn-nav" onclick="nextPage()" ${state.pageIndex === lessons.length - 1 ? "disabled" : ""}>الصفحة التالية →</button>
+        </div>
+      `;
+
+      initSimulation(l.id);
+    }
+
+    function toggleDrawer(id) {
+      playTone(620, 0.07);
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle("open");
+    }
+
+    function answerQuiz(lessonId, chosen, correct) {
+      if (state.answered[lessonId] !== undefined) return;
+      state.answered[lessonId] = chosen;
+      if (chosen === correct) { playTone(780, 0.12); addScore(15); }
+      else { playTone(260, 0.14); addScore(5); }
+      renderPage();
+    }
+
+    function nextPage() {
+      if (state.pageIndex < lessons.length - 1) { playTone(540, 0.07); state.pageIndex++; renderPage(); }
+    }
+
+    function prevPage() {
+      if (state.pageIndex > 0) { playTone(440, 0.07); state.pageIndex--; renderPage(); }
+    }
+
+    function drawAxes(ctx, ox, oy, show3D = true, labelX = "+س", labelY = "+ص") {
+      ctx.save();
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.12)";
+      ctx.lineWidth = 1;
+      for (let x = 20; x < 500; x += 40) { ctx.beginPath(); ctx.moveTo(x, 15); ctx.lineTo(x, 255); ctx.stroke(); }
+      for (let y = 20; y < 260; y += 40) { ctx.beginPath(); ctx.moveTo(15, y); ctx.lineTo(505, y); ctx.stroke(); }
+
+      ctx.strokeStyle = "#f87171"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(30, oy); ctx.lineTo(490, oy); ctx.stroke();
+      ctx.fillStyle = "#fca5a5"; ctx.font = "bold 12px sans-serif";
+      ctx.fillText(labelX, 468, oy - 7); ctx.fillText("−س", 34, oy - 7);
+
+      ctx.strokeStyle = "#4ade80"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(ox, 22); ctx.lineTo(ox, 250); ctx.stroke();
+      ctx.fillStyle = "#86efac";
+      ctx.fillText(labelY, ox + 8, 34); ctx.fillText("−ص", ox + 8, 246);
+
+      if (show3D) {
+        ctx.strokeStyle = "#c084fc"; ctx.setLineDash([5, 4]); ctx.lineWidth = 1.8;
+        ctx.beginPath(); ctx.moveTo(ox - 85, oy + 75); ctx.lineTo(ox + 95, oy - 82); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = "#d8b4fe"; ctx.fillText("البُعد ٣", ox + 80, oy - 85);
+      }
+
+      ctx.fillStyle = "#fbbf24";
+      ctx.beginPath(); ctx.arc(ox, oy, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+
+    let animId = null;
+    function initSimulation(id) {
+      if (animId) cancelAnimationFrame(animId);
+      const canvas = document.getElementById("simCanvas");
+      const ctx = canvas.getContext("2d");
+      const ctrl = document.getElementById("simControls");
+      ctrl.innerHTML = "";
+
+      if (id === "collision") {
+        let angle = 35, t = 0;
+        ctrl.innerHTML = `<label>الزاوية (هـ): <input type="range" min="15" max="60" value="35" id="angRange"></label><button class="btn-teal" id="replaySim">إعادة</button>`;
+        document.getElementById("angRange").oninput = (e) => { angle = Number(e.target.value); t = 0; };
+        document.getElementById("replaySim").onclick = () => { t = 0; };
+        const loop = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const ix = 240, iy = 135;
+          drawAxes(ctx, ix, iy, true, "+س", "+ص");
+          let x1, y1, x2 = ix, y2 = iy;
+          if (t < 40) { x1 = 60 + (t / 40) * (ix - 60); y1 = iy; }
+          else {
+            const dt = t - 40, rad = (angle * Math.PI) / 180;
+            x1 = ix + dt * 3.1 * Math.cos(rad); y1 = iy - dt * 3.1 * Math.sin(rad);
+            x2 = ix + dt * 2.7 * Math.cos(rad); y2 = iy + dt * 2.7 * Math.sin(rad);
+          }
+          ctx.fillStyle = "#38bdf8"; ctx.beginPath(); ctx.arc(x1, y1, 14, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = "#fb7185"; ctx.beginPath(); ctx.arc(x2, y2, 14, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = "#e2e8f0"; ctx.font = "bold 12px sans-serif";
+          ctx.fillText(`تصادم في بُعدين | هـ = ${angle}°`, 16, 22);
+          t = (t + 1) % 120;
+          animId = requestAnimationFrame(loop);
+        };
+        loop();
+      } else if (id === "rockets") {
+        let thrust = 70, y = 210;
+        ctrl.innerHTML = `<label>الدفع: <input type="range" min="30" max="100" value="70" id="thrRange"></label>`;
+        document.getElementById("thrRange").oninput = (e) => { thrust = Number(e.target.value); };
+        const loop = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          drawAxes(ctx, 260, 225, true, "+س", "+ص");
+          y -= (thrust / 100) * 1.4;
+          if (y < 38) y = 210;
+          ctx.fillStyle = "#f97316"; ctx.beginPath(); ctx.moveTo(260, y + 28); ctx.lineTo(250, y + 54); ctx.lineTo(270, y + 54); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = "#f8fafc"; ctx.fillRect(250, y, 20, 28);
+          ctx.fillStyle = "#ef4444"; ctx.beginPath(); ctx.moveTo(250, y); ctx.lineTo(260, y - 16); ctx.lineTo(270, y); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = "#5eead4"; ctx.font = "bold 12px sans-serif";
+          ctx.fillText(`اندفاع الصاروخ (+ص) ← الغازات (−ص) | الدفع: ${thrust}%`, 16, 22);
+          animId = requestAnimationFrame(loop);
+        };
+        loop();
+      } else if (id === "escape" || id === "satellites") {
+        let mode = id === "satellites" ? "orbit" : "escape", ang = 0;
+        ctrl.innerHTML = `<button class="btn-light" id="mSub">سقوط</button><button class="btn-teal" id="mOrb">مدار (≈٨ كم/ث)</button><button class="btn-gold" id="mEsc">إفلات (١١٫٢ كم/ث)</button>`;
+        document.getElementById("mSub").onclick = () => { mode = "fall"; ang = 0; };
+        document.getElementById("mOrb").onclick = () => { mode = "orbit"; ang = 0; };
+        document.getElementById("mEsc").onclick = () => { mode = "escape"; ang = 0; };
+        const loop = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const cx = 260, cy = 138;
+          drawAxes(ctx, cx, cy, true, "+س", "+ص");
+          ctx.fillStyle = "#2563eb"; ctx.beginPath(); ctx.arc(cx, cy, 34, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = "#22c55e"; ctx.beginPath(); ctx.arc(cx - 8, cy - 6, 11, 0, Math.PI * 2); ctx.fill();
+          let px = cx, py = cy - 62;
+          if (mode === "orbit") { px = cx + 68 * Math.cos(ang); py = cy + 68 * Math.sin(ang); ang += 0.035; }
+          else if (mode === "escape") { const d = 60 + (ang * 45) % 190; px = cx + d * Math.cos(ang * 0.4); py = cy + d * Math.sin(ang * 0.4); ang += 0.04; }
+          else { const f = (ang * 20) % 26; px = cx + f * 1.3; py = cy - 62 + f; ang += 0.04; }
+          ctx.fillStyle = "#fbbf24"; ctx.beginPath(); ctx.arc(px, py, 7, 0, Math.PI * 2); ctx.fill();
+          animId = requestAnimationFrame(loop);
+        };
+        loop();
+      } else {
+        let t = 0, angle = 45;
+        ctrl.innerHTML = `<label>الزاوية (هـ): <input type="range" min="20" max="75" value="45" id="projAng"></label><button class="btn-teal" id="resetProj">إعادة</button>`;
+        document.getElementById("projAng").oninput = (e) => { angle = Number(e.target.value); t = 0; };
+        document.getElementById("resetProj").onclick = () => { t = 0; };
+        const loop = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const x0 = 65, y0 = 220;
+          drawAxes(ctx, x0, y0, true, "+س", "+ص");
+          const rad = (angle * Math.PI) / 180, v0 = 9.0, g = 0.22;
+          const bx = x0 + v0 * Math.cos(rad) * t;
+          const by = Math.min(y0 - (v0 * Math.sin(rad) * t - 0.5 * g * t * t), y0);
+          ctx.fillStyle = "#34d399"; ctx.beginPath(); ctx.arc(bx, by, 8, 0, Math.PI * 2); ctx.fill();
+          t += 0.8;
+          if (y0 - (v0 * Math.sin(rad) * t - 0.5 * g * t * t) > y0) t = 0;
+          animId = requestAnimationFrame(loop);
+        };
+        loop();
+      }
+    }
+
+    function openModal(title, html) {
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalBody").innerHTML = html;
+      document.getElementById("modalBackdrop").classList.add("open");
+    }
+
+    function closeModal(e) {
+      if (!e || e.target.id === "modalBackdrop") document.getElementById("modalBackdrop").classList.remove("open");
+    }
+
+    function openOriginalBook() {
+      const l = lessons[state.pageIndex];
+      openModal(`📖 الكتاب الأصلي — ${l.title}`, `<div class="panel">${l.originalText}</div>`);
+    }
+
+    function openUnitReview() {
+      const html = unitReviewQuestions.map((item, idx) => `
+        <div class="panel">
+          <div style="font-weight:700;">${item.q}</div>
+          <button class="btn-teal" style="margin-top:8px;" onclick="toggleSol('sol_${idx}')">إظهار / إخفاء الحل</button>
+          <div class="solution-box" id="sol_${idx}">${item.a}</div>
+        </div>
+      `).join("");
+      openModal("✅ حل تقويم الوحدة الأولى كاملاً", html);
+    }
+
+    function toggleSol(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle("show");
+    }
+
+    function speakText(txt) {
+      if (!state.soundEnabled || !("speechSynthesis" in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(txt.replace(/<[^>]+>/g, ""));
+        u.lang = "ar-SA";
+        window.speechSynthesis.speak(u);
+      } catch (e) {}
+    }
+
+    function openTeacherChat() {
+      const logHtml = state.chatHistory.map(m => `<div class="msg ${m.from}">${m.text}</div>`).join("");
+      openModal("🤖 المدرس الذكي (Pollinations AI — أ. عمر حسان عبره)", `
+        <div class="chat-log" id="chatLog">${logHtml}</div>
+        <div style="display:flex;gap:8px;">
+          <input id="chatInput" type="text" placeholder="اكتب سؤالك في الفيزياء..." style="flex:1;padding:9px 12px;border-radius:10px;border:1px solid #cbd5e1;font-family:inherit;" />
+          <button class="btn-teal" onclick="sendChat()">إرسال</button>
+        </div>
+      `);
+    }
+
+    async function sendChat() {
+      const input = document.getElementById("chatInput");
+      const val = input.value.trim();
+      if (!val) return;
+      const l = lessons[state.pageIndex];
+      state.chatHistory.push({ from: "user", text: val });
+      state.chatHistory.push({ from: "bot", text: "⏳ جارٍ الاتصال بالذكاء الاصطناعي وتوليد الإجابة..." });
+      openTeacherChat();
+
+      const promptText = `أنت مساعد الأستاذ عمر حسان عبره (967737219181) في كتاب فيزياء ثالث ثانوي (المنهج اليمني). الدرس الحالي: ${l.title}. القانون: ${l.law}. أجب بالعربية الفصحى المبسطة مستخدماً الرموز العربية (كت، ك، ع، ء، نق، ق، هـ).\nالسؤال: ${val}`;
+      try {
+        const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(promptText)}`);
+        if (!res.ok) throw new Error("Failed");
+        const reply = (await res.text()).trim();
+        state.chatHistory[state.chatHistory.length - 1] = { from: "bot", text: reply };
+        speakText(reply);
+      } catch (e) {
+        const fb = `في درس (${l.title}): ${l.summary} | القانون: ${l.law}`;
+        state.chatHistory[state.chatHistory.length - 1] = { from: "bot", text: fb };
+        speakText(fb);
+      }
+      openTeacherChat();
+    }
+
+    checkAccessStatus();
+    renderPage();
+  </script>
+</body>
+</html>
