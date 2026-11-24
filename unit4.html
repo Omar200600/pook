@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ثري دي اكسيس | فيزياء ثالث ثانوي - الوحدة الرابعة: الفيزياء الذرية والنووية</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --ink: #132238;
+      --muted: #52647a;
+      --primary: #0f4c81;
+      --primary-2: #1976d2;
+      --accent: #0d9488;
+      --gold: #d97706;
+      --ok: #15803d;
+      --err: #b91c1c;
+      --border: #dce5f0;
+      --shadow: 0 8px 24px rgba(19, 34, 56, 0.07);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+      background: linear-gradient(180deg, #eef4fb 0%, var(--bg) 100%);
+      color: var(--ink);
+      line-height: 1.75;
+    }
+    header.topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(135deg, #0b2d4d 0%, var(--primary) 65%, var(--primary-2) 100%);
+      color: #fff;
+      padding: 8px 14px;
+      box-shadow: 0 3px 14px rgba(11, 45, 77, 0.22);
+    }
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .brand h1 { margin: 0; font-size: 1rem; font-weight: 800; }
+    .brand small { display: block; font-size: 0.76rem; opacity: 0.9; }
+    .menu-toggle-btn {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 12px;
+      font-size: 0.84rem;
+      border-radius: 9px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tools-drawer {
+      max-width: 1180px;
+      margin: 8px auto 0;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      display: none;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: flex-end;
+    }
+    .tools-drawer.open { display: flex; }
+
+    button, .btn-link {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      border-radius: 9px;
+      padding: 7px 12px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.12s ease, opacity 0.15s ease;
+    }
+    button:hover, .btn-link:hover { transform: translateY(-1px); }
+    .btn-light { background: #fff; color: var(--primary); }
+    .btn-gold { background: #fbbf24; color: #1f2937; }
+    .btn-teal { background: #0d9488; color: #fff; }
+    .btn-purple { background: #7c3aed; color: #fff; }
+    .btn-red { background: #dc2626; color: #fff; }
+    .btn-blue { background: #2563eb; color: #fff; }
+    .btn-green { background: #16a34a; color: #fff; }
+    .btn-outline {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 14px auto 28px;
+      padding: 0 12px;
+    }
+    .status-strip {
+      background: #fffbeb;
+      border: 1.5px solid #f59e0b;
+      border-radius: 12px;
+      padding: 9px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .status-strip.warn { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
+    .status-strip.pro { background: #ecfdf5; border-color: #10b981; color: #065f46; }
+
+    .progress-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .bar-wrap {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 25%;
+      background: linear-gradient(90deg, var(--accent), var(--primary-2));
+      transition: width 0.35s ease;
+    }
+    .page-dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .dot-btn {
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      background: #eef2f7;
+      color: var(--ink);
+    }
+    .dot-btn.active { background: var(--primary); color: #fff; }
+
+    .book-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.22s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .lesson-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+    .lesson-title { margin: 0; font-size: 1.32rem; color: var(--primary); }
+    .lesson-btns { display: flex; flex-wrap: wrap; gap: 7px; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 880px) { .grid-2 { grid-template-columns: 1fr; } }
+    .panel {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 13px;
+      padding: 14px;
+      margin-bottom: 13px;
+    }
+    .panel h3 { margin: 0 0 8px; font-size: 1.02rem; color: var(--primary); }
+    .law-box {
+      background: #eff6ff;
+      border-right: 4px solid var(--primary-2);
+      padding: 10px 13px;
+      border-radius: 9px;
+      margin: 10px 0 0;
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+    .sim-box {
+      background: #081324;
+      color: #f8fafc;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      border: 1px solid #1e3a5f;
+    }
+    .sim-box h3 { margin: 0 0 8px; color: #5eead4; font-size: 1rem; }
+    canvas {
+      width: 100%;
+      height: 270px;
+      background: #0b1b33;
+      border-radius: 10px;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+    .axis-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.78rem;
+      margin-top: 7px;
+      color: #cbd5e1;
+    }
+    .axis-pill {
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+      font-weight: 700;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 0.84rem;
+    }
+    .controls label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.08);
+      padding: 5px 9px;
+      border-radius: 8px;
+    }
+
+    .extra-drawer { margin-top: 10px; padding: 13px; border-radius: 12px; display: none; }
+    .extra-drawer.open { display: block; }
+    .drawer-simple { background: #fefce8; border: 1px solid #fde047; color: #422006; }
+    .drawer-amazing {
+      background: linear-gradient(135deg, #fdf2f8 0%, #eff6ff 50%, #ecfdf5 100%);
+      border: 2px solid #8b5cf6;
+      color: #1e1b4b;
+    }
+    .drawer-media { background: #f0f9ff; border: 2px solid #0284c7; color: #0c4a6e; }
+    .amazing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .amazing-chip {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid #ddd6fe;
+      font-size: 0.89rem;
+    }
+    .media-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .career-tag {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+    }
+    .q-card {
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 12px;
+      margin-top: 8px;
+    }
+    .opt-btn {
+      display: block;
+      width: 100%;
+      text-align: right;
+      margin-top: 6px;
+      background: #f1f5f9;
+      color: var(--ink);
+      border: 1px solid #cbd5e1;
+    }
+    .opt-btn.correct { background: #dcfce7; border-color: var(--ok); color: #14532d; }
+    .opt-btn.wrong { background: #fee2e2; border-color: var(--err); color: #7f1d1d; }
+    .pager {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 13px;
+      border-top: 2px solid #edf2f7;
+    }
+    .btn-nav { background: var(--primary); color: #fff; padding: 9px 16px; font-size: 0.92rem; }
+    .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.72);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 12px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: #fff;
+      color: var(--ink);
+      width: 100%;
+      max-width: 820px;
+      max-height: 88vh;
+      overflow-y: auto;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+    .modal-head h2 { margin: 0; font-size: 1.1rem; color: var(--primary); }
+    .close-x { background: #fee2e2; color: #991b1b; }
+    .chat-log {
+      max-height: 250px;
+      overflow-y: auto;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 11px;
+      padding: 11px;
+      margin-bottom: 10px;
+    }
+    .msg { padding: 8px 12px; border-radius: 10px; margin-bottom: 8px; font-size: 0.9rem; white-space: pre-line; }
+    .msg.bot { background: #e0f2fe; color: #0c4a6e; }
+    .msg.user { background: #dcfce7; color: #14532d; text-align: left; }
+    .solution-box {
+      background: #f0fdf4;
+      border-right: 4px solid var(--ok);
+      padding: 11px 13px;
+      border-radius: 9px;
+      margin-top: 9px;
+      display: none;
+      font-size: 0.92rem;
+      line-height: 1.85;
+    }
+    .solution-box.show { display: block; }
+    .step-line { margin-bottom: 5px; }
+
+    .kuraimi-guide {
+      background: #f0fdf4;
+      border: 1.5px solid #16a34a;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+    .confirm-box {
+      background: #fff7ed;
+      border: 2px solid #ea580c;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .receipt-box {
+      background: #dcfce7;
+      border: 2px solid #15803d;
+      color: #14532d;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 12px;
+      display: none;
+      font-weight: 700;
+    }
+
+    footer.unit-footer {
+      background: linear-gradient(135deg, #0b2d4d, #0f4c81);
+      color: #fff;
+      padding: 18px 14px;
+      margin-top: 32px;
+      border-top: 4px solid #fbbf24;
+    }
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+    }
+    .footer-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <h1>ثري دي اكسيس — فيزياء ثالث ثانوي (الوحدة الرابعة: الفيزياء الذرية والنووية)</h1>
+        <small>إعداد وتطوير: المطور الأستاذ عمر حسان عبره | الكريمي: 737219181 (خارج اليمن: 00967737219181)</small>
+      </div>
+      <button class="menu-toggle-btn" id="menuToggleBtn" onclick="toggleTopTools()">☰ أدوات الكتاب والتقويم</button>
+    </div>
+    <div class="tools-drawer" id="topToolsDrawer">
+      <a class="btn-link btn-light" href="index.html">🏠 فهرس الوحدات</a>
+      <a class="btn-link btn-light" href="unit1.html">📘 الوحدة الأولى</a>
+      <a class="btn-link btn-light" href="unit2.html">⚡ الوحدة الثانية</a>
+      <a class="btn-link btn-light" href="unit3.html">🔌 الوحدة الثالثة</a>
+      <button class="btn-light" onclick="openOriginalBook()">📖 الكتاب الأصلي للدرس</button>
+      <button class="btn-gold" onclick="openUnitReview()">✅ حل تقويم الوحدة الرابعة</button>
+      <button class="btn-teal" onclick="openTeacherChat()">🤖 المدرس الذكي (Pollinations AI)</button>
+      <button class="btn-gold" onclick="openPaymentModal(false)">💳 الإيداع عبر الكريمي والتفعيل</button>
+      <button class="btn-outline" id="soundToggleBtn" onclick="toggleSound()">🔊 الصوت: مفعّل</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="status-strip" id="trialStrip">
+      <span id="trialLabel">جارٍ فحص حالة النسخة...</span>
+      <button class="btn-gold" onclick="openPaymentModal(false)">💳 الإيداع عبر الكريمي والتفعيل</button>
+    </div>
+
+    <div class="progress-box">
+      <div class="progress-top">
+        <span id="pageIndicator">الصفحة 1 من 4</span>
+        <span id="scoreBadge">نقاط التفاعل: 0 ⭐</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill" id="progressFill"></div></div>
+      <div class="page-dots" id="pageDots"></div>
+    </div>
+
+    <main class="book-card" id="bookContainer"></main>
+  </div>
+
+  <!-- التذييل الموحد للوحدة الرابعة -->
+  <footer class="unit-footer">
+    <div class="footer-inner">
+      <div>
+        <div><strong>تصميم وتطوير: المطور الأستاذ عمر حسان عبره</strong> — منصة <strong>ثري دي اكسيس</strong> التعليمية</div>
+        <div style="opacity:0.9;">الإيداع عبر مصرف الكريمي: داخل اليمن <strong>737219181</strong> | من خارج اليمن <strong>00967737219181</strong></div>
+      </div>
+      <div class="footer-actions">
+        <a class="btn-link btn-light" href="tel:+967737219181">📞 اتصال مباشر</a>
+        <a class="btn-link btn-green" href="https://wa.me/967737219181?text=السلام%20عليكم%20أستاذ%20عمر%20حسان%20عبره" target="_blank" rel="noopener noreferrer">💬 واتساب مباشر</a>
+        <button class="btn-link btn-gold" onclick="openPaymentModal(false)">💳 إيداع وتفعيل</button>
+        <a class="btn-link btn-outline" href="index.html">🏠 الرئيسية</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- نافذة الكتاب الأصلي / التقويم / المدرس الذكي -->
+  <div class="modal-backdrop" id="modalBackdrop" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-head">
+        <h2 id="modalTitle">عنوان النافذة</h2>
+        <button class="close-x" onclick="closeModal()">✕ إغلاق</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- نافذة الإيداع عبر مصرف الكريمي وتأكيد الرقم -->
+  <div class="modal-backdrop" id="paymentBackdrop">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="payModalTitle">💳 الإيداع عبر مصرف الكريمي وطلب كود التفعيل</h2>
+        <button class="close-x" id="closePayModalBtn" onclick="closePaymentModal()">✕ إغلاق</button>
+      </div>
+
+      <div class="kuraimi-guide">
+        <div style="font-weight:800;color:#14532d;margin-bottom:4px;">🏦 خطوات الإيداع في مصرف الكريمي:</div>
+        <div>1️⃣ توجّه إلى أقرب فرع أو نقطة لمصرف الكريمي (أو عبر تطبيق الكريمي جوال).</div>
+        <div>2️⃣ أخبر الموظف المختص بالإيداع لحساب: <strong>عمر حسن محمد عود إبراهيم (الأستاذ عمر حسان عبره)</strong>.</div>
+        <div>3️⃣ رقم الحساب داخل اليمن: <strong style="color:#0f4c81;font-size:1.05rem;">737219181</strong> | ومن خارج اليمن: <strong style="color:#0f4c81;font-size:1.05rem;">00967737219181</strong>.</div>
+        <div>4️⃣ بعد الإيداع، أكّد العملية بالأسفل وأرسل طلبك عبر واتساب ليصلك <strong>كود التفعيل الخاص ببصمة جهازك (<span id="fpValue"></span>)</strong>.</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+        <div>
+          <label style="font-size:0.84rem;font-weight:700;">اسم المودِع (الطالب / المشتري):</label>
+          <input type="text" id="buyerName" placeholder="اكتب اسمك كما في الإيداع" style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid #cbd5e1;font-family:inherit;" />
+        </div>
+        <div>
+          <label style="font-size:0.84rem;font-weight:700;">الباقة المدفوعة:</label>
+          <select id="planType" style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid #cbd5e1;font-family:inherit;">
+            <option value="شهري">اشتراك شهري</option>
+            <option value="سنوي">اشتراك سنوي</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="confirm-box">
+        <div style="font-weight:800;color:#9a3412;">⚠️ رسالة تأكيد فورية قبل إرسال الطلب:</div>
+        <div style="margin-top:4px;font-size:0.9rem;">
+          الرقم المعتمد للإيداع في الكريمي هو: <strong>737219181</strong> (أو <strong>00967737219181</strong> من خارج اليمن) باسم <strong>عمر حسن محمد عود إبراهيم</strong>.
+          <br><strong>هل هذا هو الرقم الذي أودعت له؟</strong>
+        </div>
+        <label style="display:flex;align-items:center;gap:7px;margin-top:8px;font-weight:800;cursor:pointer;">
+          <input type="checkbox" id="confirmTargetNum" />
+          <span>نعم، أؤكد أن هذا الرقم (737219181 / 00967737219181) هو الرقم الذي أودعت له.</span>
+        </label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+          <button class="btn-green" onclick="submitDepositRequest()">✅ تأكيد الإيداع وتسجيل الطلب</button>
+          <a class="btn-link btn-blue" id="waConfirmLink" href="#" target="_blank" rel="noopener noreferrer">📲 إرسال طلب كود التفعيل إلى واتساب الأستاذ عمر</a>
+        </div>
+      </div>
+
+      <div class="receipt-box" id="receiptConfirmationBox"></div>
+
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid #e2e8f0;">
+        <label style="font-weight:700;">أدخل كود التفعيل الذي أرسله لك الأستاذ عمر عبر واتساب:</label>
+        <div style="display:flex;gap:8px;margin-top:6px;">
+          <input type="text" id="unlockCodeInput" placeholder="مثال: AX-M-1234 أو AX-Y-5678" style="flex:1;padding:9px 12px;border-radius:9px;border:1px solid #cbd5e1;font-family:inherit;" />
+          <button class="btn-teal" onclick="applyUnlockCode()">تفعيل الآن</button>
+        </div>
+        <div id="unlockStatusMsg" style="font-weight:700;margin-top:6px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    const TRIAL_DAYS = 7;
+    const WA_PHONE = "967737219181";
+
+    function getDeviceFp() {
+      let fp = localStorage.getItem("3daxis_fp");
+      if (!fp) {
+        const raw = [navigator.userAgent, screen.width + "x" + screen.height, Math.floor(1000 + Math.random() * 9000)].join("|");
+        let h = 0;
+        for (let i = 0; i < raw.length; i++) h = ((h << 5) - h) + raw.charCodeAt(i);
+        fp = "AX-" + Math.abs(h).toString(36).toUpperCase().slice(0, 6);
+        localStorage.setItem("3daxis_fp", fp);
+      }
+      if (!localStorage.getItem("3daxis_first_run")) {
+        localStorage.setItem("3daxis_first_run", Date.now().toString());
+      }
+      return fp;
+    }
+
+    function checkAccessStatus() {
+      const fp = getDeviceFp();
+      document.getElementById("fpValue").textContent = fp;
+      const now = Date.now();
+      const subUntil = Number(localStorage.getItem("3daxis_sub_until") || 0);
+      const firstRun = Number(localStorage.getItem("3daxis_first_run") || now);
+      const strip = document.getElementById("trialStrip");
+      const label = document.getElementById("trialLabel");
+
+      if (subUntil > now) {
+        const daysLeft = Math.ceil((subUntil - now) / DAY_MS);
+        strip.className = "status-strip pro";
+        label.textContent = `✅ الاشتراك مفعّل — متبقي ${daysLeft} يوماً`;
+        return true;
+      }
+
+      const rem = Math.ceil(TRIAL_DAYS - ((now - firstRun) / DAY_MS));
+      if (rem <= 0) {
+        strip.className = "status-strip warn";
+        label.textContent = "⛔ انتهت الفترة التجريبية (٧ أيام). يرجى الإيداع في الكريمي وتفعيل الاشتراك.";
+        openPaymentModal(true);
+        return false;
+      } else if (rem <= 3) {
+        strip.className = "status-strip warn";
+        label.textContent = `⚠️ تنبيه: سيتوقف البرنامج التجريبي خلال ${rem} أيام! بادر بالاشتراك عبر الكريمي.`;
+        return true;
+      } else {
+        strip.className = "status-strip";
+        label.textContent = `🎁 نسخة تجريبية مجانية — متبقي ${rem} أيام من أصل ٧ أيام`;
+        return true;
+      }
+    }
+
+    function openPaymentModal(locked) {
+      document.getElementById("paymentBackdrop").classList.add("open");
+      document.getElementById("closePayModalBtn").style.display = locked ? "none" : "inline-flex";
+      document.getElementById("payModalTitle").textContent = locked
+        ? "⛔ انتهت الفترة التجريبية — يرجى الإيداع في الكريمي والتفعيل"
+        : "💳 الإيداع عبر مصرف الكريمي وطلب كود التفعيل";
+      updateWaConfirmLink();
+    }
+
+    function closePaymentModal() {
+      document.getElementById("paymentBackdrop").classList.remove("open");
+    }
+
+    function updateWaConfirmLink() {
+      const name = document.getElementById("buyerName").value.trim() || "طالب / مشتري";
+      const plan = document.getElementById("planType").value;
+      const fp = getDeviceFp();
+      const msg = `السلام عليكم أستاذ عمر حسان عبره، أنا (${name}) أؤكد أنني أودعت لحسابكم في الكريمي (737219181) لاشتراك (${plan}). أرجو إرسال كود التفعيل لبصمة جهازي: ${fp}`;
+      document.getElementById("waConfirmLink").href = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`;
+    }
+
+    function submitDepositRequest() {
+      const checked = document.getElementById("confirmTargetNum").checked;
+      const name = document.getElementById("buyerName").value.trim() || "مستخدم";
+      const plan = document.getElementById("planType").value;
+      const fp = getDeviceFp();
+      const box = document.getElementById("receiptConfirmationBox");
+
+      if (!checked) {
+        box.style.display = "block";
+        box.style.background = "#fee2e2";
+        box.style.borderColor = "#b91c1c";
+        box.style.color = "#7f1d1d";
+        box.innerHTML = `❌ يرجى أولاً التأكيد على السؤال: <strong>هل هذا هو الرقم (737219181 / 00967737219181) الذي أودعت له؟</strong>`;
+        return;
+      }
+
+      updateWaConfirmLink();
+      const orderRef = "KRM-" + Math.floor(100000 + Math.random() * 899999);
+      box.style.display = "block";
+      box.style.background = "#dcfce7";
+      box.style.borderColor = "#15803d";
+      box.style.color = "#14532d";
+      box.innerHTML = `
+        ✅ <strong>تم استلام طلبك بنجاح!</strong><br>
+        • رقم المرجع: <strong>${orderRef}</strong> | الاسم: <strong>${name}</strong> | الباقة: <strong>${plan}</strong><br>
+        • حساب الإيداع المؤكَّد: <strong>737219181</strong> | بصمة جهازك: <strong>${fp}</strong><br>
+        • اضغط الآن على زر الواتساب بالأعلى لإرسال الطلب إلى الأستاذ عمر واستلام كود التفعيل.
+      `;
+    }
+
+    function computeCode(fp, planCode) {
+      let sum = 0;
+      const str = fp + "_" + planCode + "_OMAR_EBRAH_967737219181";
+      for (let i = 0; i < str.length; i++) sum += str.charCodeAt(i) * (i + 5);
+      return `AX-${planCode}-${(sum % 8999) + 1000}`;
+    }
+
+    function applyUnlockCode() {
+      const fp = getDeviceFp();
+      const code = document.getElementById("unlockCodeInput").value.trim().toUpperCase();
+      const msg = document.getElementById("unlockStatusMsg");
+      if (code === computeCode(fp, "M")) {
+        localStorage.setItem("3daxis_sub_until", (Date.now() + 30 * DAY_MS).toString());
+        msg.style.color = "#15803d";
+        msg.textContent = "✅ تم تفعيل الاشتراك الشهري (٣٠ يوماً) بنجاح!";
+        setTimeout(() => { closePaymentModal(); checkAccessStatus(); }, 800);
+      } else if (code === computeCode(fp, "Y")) {
+        localStorage.setItem("3daxis_sub_until", (Date.now() + 365 * DAY_MS).toString());
+        msg.style.color = "#15803d";
+        msg.textContent = "✅ تم تفعيل الاشتراك السنوي (٣٦٥ يوماً) بنجاح!";
+        setTimeout(() => { closePaymentModal(); checkAccessStatus(); }, 800);
+      } else {
+        msg.style.color = "#b91c1c";
+        msg.textContent = "❌ كود التفعيل غير صحيح أو غير مطابق لبصمة هذا الجهاز.";
+      }
+    }
+
+    const state = {
+      pageIndex: 0,
+      score: 0,
+      soundEnabled: true,
+      answered: {},
+      chatHistory: [
+        {
+          from: "bot",
+          text: "أهلاً بك يا بني في الوحدة الرابعة (الفيزياء الذرية والنووية) بإشراف الأستاذ عمر حسان عبره. اسألني عن مستويات الطاقة أو الأشعة النووية أو عمر النصف والانشطار."
+        }
+      ]
+    };
+
+    const lessons = [
+      {
+        id: "atom_levels",
+        title: "١. التركيب الذري ومستويات الطاقة والليزر",
+        subtitle: "انتقال الإلكترون بين مستويات الطاقة في الذرة والانبعاث التلقائي والمستحث",
+        law: "ط فوتون = ط₂ − ط₁ = هـ × ت   |   ع = ت × ل (حيث هـ ثابت بلانك)",
+        summary: "تدور الإلكترونات في مدارات ومستويات طاقة محددة دون أن تشع طاقة؛ وعندما ينتقل إلكترون من مستوى طاقة أعلى إلى مستوى أدنى يشع فوتوناً طاقته تساوي فرق الطاقة بين المستويين.",
+        simpleExplain: "تخيل مستويات الطاقة كدرجات سلم: لا يقف الإلكترون بين الدرجات، وعند هبوطه من درجة عالية إلى درجة منخفضة يطلق وميضاً ضوئياً (فوتوناً) يعادل فرق الارتفاع بين الدرجتين.",
+        career: "مهندس البصريات والليزر والأطياف الذرية",
+        careerDesc: "يُوظّف الانبعاث المستحث والضوء المترابط في تقنيات الليزر الطبية، والقياس الدقيق، والاتصالات البصرية، وتحليل الأطياف.",
+        media: [
+          { label: "🎬 أنيميشن: مستويات الطاقة والانبعاث والليزر", url: "https://www.youtube.com/watch?v=9x9b5M0cR5c", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: نماذج الذرة والليزر", url: "https://phet.colorado.edu/sims/html/lasers/latest/lasers_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "خصائص ضوء الليزر الفريدة", d: "يتميز ضوء الليزر بأنه أحادي اللون، ومترابط الموجات، وشديد التركيز والاتجاهية مقارنة بالضوء العادي." },
+          { t: "الأطياف الذرية بصمة للعناصر", d: "لكل عنصر كيميائي طيف انبعاث وامتصاص مميز يشبه البصمة للتعرف على تركيب النجوم والغازات." },
+          { t: "تكمية الطاقة في الذرة", d: "مبدأ تكمية الطاقة كان خطوة ثورية في الفيزياء الحديثة لفهم استقرار الذرات." }
+        ],
+        originalText: `<p><strong>مستويات الطاقة والليزر:</strong> ط فوتون = ط₂ − ط₁ = هـ × ت، ويعتمد الليزر على الانبعاث المستحث للفوتونات.</p>`,
+        quiz: {
+          q: "سؤال وزاري: عندما ينتقل إلكترون في الذرة من مستوى طاقة أعلى (ط₂) إلى مستوى أدنى (ط₁)، فإنه:",
+          opts: [
+            "ينبعث منه فوتون طاقته تساوي (ط₂ − ط₁)",
+            "يمتص فوتوناً طاقته تساوي (ط₂ + ط₁)",
+            "لا يغير طاقته إطلاقاً"
+          ],
+          ans: 0,
+          why: "الهبوط من مستوى طاقة أعلى إلى أدنى يصحبه انبعاث فوتون طاقته مساوية لفرق الطاقة (ط₂ − ط₁)."
+        }
+      },
+      {
+        id: "radioactivity",
+        title: "٢. النشاط الإشعاعي الطبيعي وأنواع الأشعة النووية",
+        subtitle: "جسيمات ألفا (α) وجسيمات بيتا (β) وأشعة جاما (γ) وخصائصها",
+        law: "تحلل ألفا: ينقص العدد الكتلي بمقدار ٤ والعدد الذري بمقدار ٢   |   تحلل بيتا: يزداد العدد الذري بمقدار ١",
+        summary: "تتحلل الأنوية الثقيلة غير المستقرة تلقائياً لتصل إلى حالة استقرار، مطلقة إشعاعات ألفا (نواة هيليوم موجبة)، أو بيتا (إلكترونات أو بوزيترونات)، أو جاما (موجات كهرومغناطيسية عالية الطاقة).",
+        simpleExplain: "النواة غير المستقرة تشبه بناءً يبحث عن التوازن: بإطلاق جسيم ألفا أو بيتا أو طاقة جاما تقترب النواة من الاستقرار، ولكل إشعاع قدرة مختلفة على الاختراق والتأين.",
+        career: "أخصائي الفيزياء الطبية والحماية الإشعاعية",
+        careerDesc: "يراقب الجرعات الإشعاعية في المستشفيات والمختبرات ويطبّق قواعد الوقاية والدرع الإشعاعي لحماية العاملين والمرضى.",
+        media: [
+          { label: "🎬 أنيميشن: النشاط الإشعاعي وأشعة ألفا وبيتا وجاما", url: "https://www.youtube.com/watch?v=cOE40P5IYpU", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: تحلل بيتا والنشاط الإشعاعي", url: "https://phet.colorado.edu/sims/html/beta-decay/latest/beta-decay_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "الفرق في القدرة على الاختراق", d: "توقف ورقة رقيقة أو جلد الإنسان جسيمات ألفا، وتحتاج بيتا لصفيحة ألومنيوم، بينما تحتاج جاما لطبقة سميكة من الرصاص أو الخرسانة." },
+          { t: "أشعة جاما متعادلة كهربائياً", d: "لأنها موجات كهرومغناطيسية فلا تنحرف في المجالات الكهربائية أو المغناطيسية." },
+          { t: "التطبيقات الطبية والصناعية", d: "تُستخدم النظائر المشعة في التصوير الطبي، والتعقيم، وكشف عيوب اللحام في المعادن." }
+        ],
+        originalText: `<p><strong>النشاط الإشعاعي:</strong> تفكك تلقائي لأنوية الذرات غير المستقرة مصحوباً بإشعاعات ألفا (α) وبيتا (β) وجاما (γ).</p>`,
+        quiz: {
+          q: "سؤال وزاري: أي الإشعاعات النووية التالية تتكون من أنوية ذرات الهيليوم (⁴₂He)؟",
+          opts: ["جسيمات ألفا (α)", "جسيمات بيتا (β)", "أشعة جاما (γ)"],
+          ans: 0,
+          why: "جسيم ألفا هو نواة ذرة الهيليوم ويحمل شحنة موجبة (+٢) وكتلة تقارب ٤ وحدات كتلة ذرية."
+        }
+      },
+      {
+        id: "half_life",
+        title: "٣. عمر النصف والاضمحلال الإشعاعي",
+        subtitle: "الزمن اللازم لاضمحلال نصف أنوية عينة مشعة وحساب المتبقي بعد فترات",
+        law: "عدد الأنوية المتبقية بعد (ن) من فترات عمر النصف: ك متبقية = ك أصلية / (٢ⁿ)   |   الزمن الكلي = ن × ز نصف",
+        summary: "عمر النصف (ز نصف) هو الزمن اللازم لتحلل نصف عدد الأنوية المشعة في عينة معينة، وهو مقدار ثابت لكل نظير مشع لا يتأثر بالضغط أو الحرارة.",
+        simpleExplain: "لو كان لديك عينة مشعة وعمر نصفها ساعة واحدة: بعد ساعة يبقى النصف (١/٢)، وبعد ساعتين يبقى ربعها (١/٤)، وبعد ثلاث ساعات يبقى ثمنها (١/٨) وهكذا.",
+        career: "جيولوجي وعالم آثار ومؤرخ النظائر المشعة",
+        careerDesc: "يستخدم نسب اضمحلال النظائر المشعة لتقدير أعمار الصخور، والحفريات، والآثار التاريخية بدقة علمية.",
+        media: [
+          { label: "🎬 أنيميشن: مفهوم عمر النصف والاضمحلال الإشعاعي", url: "https://www.youtube.com/watch?v=zHcHVH0X_9Q", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: عمر النصف الإشعاعي", url: "https://phet.colorado.edu/sims/html/radioactive-dating-game/latest/radioactive-dating-game_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "عمر النصف صفة ذاتية للنظير", d: "لا يمكن تسريع أو إبطاء عمر النصف لمادة مشعة بتغيير درجة الحرارة أو الضغط الكيميائي." },
+          { t: "التأريخ بالكربون المشع", d: "يُستخدم الكربون-١٤ لتقدير عمر البقايا العضوية القديمة بناءً على معدل اضمحلاله الثابت." },
+          { t: "تنوع أعمار النصف", d: "تتراوح أعمار النصف من أجزاء من الثانية لبعض النظائر إلى مليارات السنين لنظائر أخرى." }
+        ],
+        originalText: `<p><strong>عمر النصف (Half-Life):</strong> الزمن اللازم لاضمحلال نصف أنوية عينة مشعة: المتبقي = الأصلي ÷ ٢ⁿ.</p>`,
+        quiz: {
+          q: "سؤال وزاري: عينة مشعة عمر نصفها ٣ أيام، ما الكسر المتبقي منها بعد مرور ٩ أيام؟",
+          opts: ["١ / ٨ من العينة الأصلية", "١ / ٤ من العينة الأصلية", "١ / ٢ من العينة الأصلية"],
+          ans: 0,
+          why: "عدد فترات عمر النصف: ن = ٩ ÷ ٣ = ٣ فترات، والمتبقي = ١ ÷ ٢³ = ١ / ٨."
+        }
+      },
+      {
+        id: "fission_fusion",
+        title: "٤. الانشطار والاندماج النووي وطاقة الربط",
+        subtitle: "انقسام الأنوية الثقيلة والتحام الأنوية الخفيفة وفق تكافؤ الكتلة والطاقة",
+        law: "ط = Δ ك × س²   |   الانشطار: انقسام نواة ثقيلة كاليورانيوم   |   الاندماج: اتحاد نواتين خفيفتين كالهيدروجين",
+        summary: "في الانشطار النووي تنقسم نواة ثقيلة مثل اليورانيوم-٢٣٥ عند قذفها بنيوترون إلى نواتين أخف مع تحرير طاقة هائلة ونيوترونات؛ وفي الاندماج النووي تتحد نواتان خفيفتان لتكوين نواة أثقل مع إطلاق طاقة أكبر.",
+        simpleExplain: "الاندماج النووي هو مصدر طاقة الشمس والنجوم عبر اتحاد ذرات الهيدروجين الخفيفة؛ أما الانشطار النووي فيحدث في المفاعلات النووية بتقسيم نواة ثقيلة وإطلاق طاقة حرارية هائلة.",
+        career: "مهندس الطاقة النووية والمفاعلات وتوليد الكهرباء",
+        careerDesc: "يعمل في التحكم بالمفاعلات النووية وأنظمة التبريد والأمان لتوليد طاقة كهربائية عالية القدرة.",
+        media: [
+          { label: "🎬 أنيميشن: الانشطار النووي والتفاعل المتسلسل", url: "https://www.youtube.com/watch?v=0v3k33n_4p0", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: الانشطار النووي", url: "https://phet.colorado.edu/sims/html/nuclear-fission/latest/nuclear-fission_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "معادلة أينشتاين لتكافؤ الكتلة والطاقة", d: "جزء ضئيل جداً من الكتلة المفقودة (Δ ك) يتحول عند ضربه في مربع سرعة الضوء (س²) إلى طاقة هائلة." },
+          { t: "طاقة الشمس والنجوم", d: "تستمد الشمس إشعاعها الهائل من تفاعلات الاندماج النووي المستمرة في قلبها." },
+          { t: "التفاعل المتسلسل المتحكم فيه", d: "تُستخدم قضبان التحكم في المفاعلات لامتصاص النيوترونات الزائدة والحفاظ على معدل تفاعل آمن ومستقر." }
+        ],
+        originalText: `<p><strong>الانشطار والاندماج النووي:</strong> ط = Δ ك × س²، حيث ينشطر اليورانيوم في الانشطار وتتحد نوى الهيدروجين في الاندماج.</p>`,
+        quiz: {
+          q: "سؤال وزاري: التفاعل النووي الذي يمد الشمس والنجوم بالطاقة هو:",
+          opts: [
+            "الاندماج النووي للأنوية الخفيفة",
+            "التحلل الإشعاعي البسيط فقط",
+            "التأين الحراري للغازات الخاملة"
+          ],
+          ans: 0,
+          why: "تتحد أنوية الهيدروجين الخفيفة في الشمس والنجوم بعملية الاندماج النووي محررة طاقة هائلة."
+        }
+      }
+    ];
+
+    const unitReviewQuestions = [
+      {
+        q: "السؤال الأول — ضع علامة (✓) أو (✕) مع التعليل:",
+        a: `
+          <div class="step-line">• <strong>١:</strong> يعتمد عمل الليزر على الانبعاث المستحث للفوتونات <strong>(✓)</strong>.</div>
+          <div class="step-line">• <strong>٢:</strong> تنحرف أشعة جاما في المجال المغناطيسي لأنها موجات موجبة الشحنة <strong>(✕)</strong> — بل لا تنحرف لأنها موجات كهرومغناطيسية متعادلة.</div>
+          <div class="step-line">• <strong>٣:</strong> في الاندماج النووي تتحد نواتان خفيفتان لتكوين نواة أثقل وتتحرر طاقة <strong>(✓)</strong>.</div>
+        `
+      },
+      {
+        q: "السؤال الثاني: عينة من عنصر مشع كتلتها ١٦٠ جراماً وعمر نصفها ٥ أيام. احسب كتلتها المتبقية بعد مرور ٢٠ يوماً.",
+        a: `
+          <div class="step-line"><strong>عدد فترات عمر النصف (ن):</strong> ٢٠ ÷ ٥ = <strong>٤ فترات</strong>.</div>
+          <div class="step-line"><strong>الكتلة المتبقية:</strong> ١٦٠ ÷ (٢⁴) = ١٦٠ ÷ ١٦ = <strong>١٠ جرامات</strong>.</div>
+        `
+      },
+      {
+        q: "السؤال الثالث: احسب طاقة الفوتون الناتج عن انتقال إلكترون إذا كان تردده (٥ × ١٠¹⁴ هرتز) واعتبر ثابت بلانك (هـ = ٦٫٦ × ١٠⁻³⁴ جول.ث).",
+        a: `
+          <div class="step-line"><strong>القانون:</strong> ط = هـ × ت</div>
+          <div class="step-line"><strong>التعويض:</strong> ط = (٦٫٦ × ١٠⁻³⁴) × (٥ × ١٠¹⁴) = <strong>٣٫٣ × ١٠⁻¹⁹ جول</strong>.</div>
+        `
+      }
+    ];
+
+    function toggleTopTools() {
+      document.getElementById("topToolsDrawer").classList.toggle("open");
+    }
+
+    function playTone(freq = 520, dur = 0.08) {
+      if (!state.soundEnabled) return;
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.frequency.value = freq;
+        gain.gain.value = 0.05;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        setTimeout(() => { osc.stop(); ctx.close(); }, dur * 1000);
+      } catch (e) {}
+    }
+
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      document.getElementById("soundToggleBtn").textContent = state.soundEnabled ? "🔊 الصوت: مفعّل" : "🔇 الصوت: مكتوم";
+    }
+
+    function addScore(pts) {
+      state.score += pts;
+      document.getElementById("scoreBadge").textContent = `نقاط التفاعل: ${state.score} ⭐`;
+    }
+
+    function renderProgress() {
+      const total = lessons.length;
+      document.getElementById("pageIndicator").textContent = `الصفحة ${state.pageIndex + 1} من ${total}`;
+      document.getElementById("progressFill").style.width = `${((state.pageIndex + 1) / total) * 100}%`;
+      const dots = document.getElementById("pageDots");
+      dots.innerHTML = "";
+      lessons.forEach((l, idx) => {
+        const b = document.createElement("button");
+        b.className = "dot-btn" + (idx === state.pageIndex ? " active" : "");
+        b.textContent = `درس ${idx + 1}`;
+        b.onclick = () => { playTone(460, 0.06); state.pageIndex = idx; renderPage(); };
+        dots.appendChild(b);
+      });
+    }
+
+    function renderPage() {
+      renderProgress();
+      const l = lessons[state.pageIndex];
+      const container = document.getElementById("bookContainer");
+
+      const optsHtml = l.quiz.opts.map((opt, i) => {
+        let cls = "opt-btn";
+        if (state.answered[l.id] !== undefined) {
+          if (i === l.quiz.ans) cls += " correct";
+          else if (i === state.answered[l.id]) cls += " wrong";
+        }
+        return `<button class="${cls}" onclick="answerQuiz('${l.id}', ${i}, ${l.quiz.ans})">${opt}</button>`;
+      }).join("");
+
+      const feedbackHtml = state.answered[l.id] !== undefined
+        ? `<p style="margin-top:8px;font-weight:700;color:#0f4c81;">💡 التوضيح: ${l.quiz.why}</p>`
+        : "";
+
+      const mediaHtml = l.media.map(m =>
+        `<a class="btn-link ${m.type === 'yt' ? 'btn-red' : 'btn-blue'}" href="${m.url}" target="_blank" rel="noopener noreferrer">${m.label} ↗</a>`
+      ).join("");
+
+      container.innerHTML = `
+        <div class="lesson-header">
+          <div>
+            <h2 class="lesson-title">${l.title}</h2>
+            <div style="color:var(--muted);font-size:0.9rem;">${l.subtitle}</div>
+          </div>
+          <div class="lesson-btns">
+            <button class="btn-gold" onclick="toggleDrawer('simpleDrawer')">💡 شرح مبسّط</button>
+            <button class="btn-purple" onclick="toggleDrawer('amazingDrawer')">🌈 توسّع مذهل</button>
+            <button class="btn-blue" onclick="toggleDrawer('mediaDrawer')">🎬 أنيميشن ومحاكاة</button>
+          </div>
+        </div>
+
+        <div class="extra-drawer drawer-simple" id="simpleDrawer">
+          <strong>💡 شرح مبسّط للفكرة:</strong>
+          <p style="margin:6px 0 0;">${l.simpleExplain}</p>
+        </div>
+
+        <div class="extra-drawer drawer-amazing" id="amazingDrawer">
+          <strong>✨ آفاق مذهلة مرتبطة بالدرس:</strong>
+          <div class="amazing-grid">
+            ${l.amazing.map(item => `<div class="amazing-chip"><strong>${item.t}</strong><br><span>${item.d}</span></div>`).join("")}
+          </div>
+        </div>
+
+        <div class="extra-drawer drawer-media" id="mediaDrawer">
+          <strong>🎬 مقاطع أنيميشن وتجارب حية عالمية + مختبر PhET:</strong>
+          <div class="media-links">${mediaHtml}</div>
+        </div>
+
+        <div class="grid-2" style="margin-top:12px;">
+          <div>
+            <div class="panel">
+              <h3>📘 خلاصة الدرس والقانون بالرموز العربية</h3>
+              <p style="margin:0;">${l.summary}</p>
+              <div class="law-box">${l.law}</div>
+            </div>
+
+            <div class="panel">
+              <span class="career-tag">🛠️ معلم المهنة والربط التطبيقي</span>
+              <h3>${l.career}</h3>
+              <p style="margin:0;">${l.careerDesc}</p>
+            </div>
+
+            <div class="panel">
+              <h3>📝 سؤال وزاري تفاعلي على الدرس</h3>
+              <div class="q-card">
+                <div style="font-weight:700;">${l.quiz.q}</div>
+                ${optsHtml}
+                ${feedbackHtml}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="sim-box">
+              <h3>🔬 محاكاة حية بمحاور الأبعاد (الزمن / الطاقة / الاضمحلال)</h3>
+              <canvas id="simCanvas" width="520" height="270"></canvas>
+              <div class="axis-legend">
+                <span class="axis-pill" style="color:#f87171;">━ محور الزمن / المسار (س)</span>
+                <span class="axis-pill" style="color:#4ade80;">┃ محور الطاقة / المتبقي (ص)</span>
+                <span class="axis-pill" style="color:#c084fc;">╱ البُعد الثالث (المدار / النواة)</span>
+              </div>
+              <div class="controls" id="simControls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pager">
+          <button class="btn-nav" onclick="prevPage()" ${state.pageIndex === 0 ? "disabled" : ""}>← الصفحة السابقة</button>
+          <button class="btn-nav" onclick="nextPage()" ${state.pageIndex === lessons.length - 1 ? "disabled" : ""}>الصفحة التالية →</button>
+        </div>
+      `;
+
+      initSimulation(l.id);
+    }
+
+    function toggleDrawer(id) {
+      playTone(620, 0.07);
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle("open");
+    }
+
+    function answerQuiz(lessonId, chosen, correct) {
+      if (state.answered[lessonId] !== undefined) return;
+      state.answered[lessonId] = chosen;
+      if (chosen === correct) { playTone(780, 0.12); addScore(15); }
+      else { playTone(260, 0.14); addScore(5); }
+      renderPage();
+    }
+
+    function nextPage() {
+      if (state.pageIndex < lessons.length - 1) { playTone(540, 0.07); state.pageIndex++; renderPage(); }
+    }
+
+    function prevPage() {
+      if (state.pageIndex > 0) { playTone(440, 0.07); state.pageIndex--; renderPage(); }
+    }
+
+    function drawAxes(ctx, ox, oy, show3D = true, labelX = "+س (ز)", labelY = "+ص (ط / ك)") {
+      ctx.save();
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.12)";
+      ctx.lineWidth = 1;
+      for (let x = 20; x < 500; x += 40) { ctx.beginPath(); ctx.moveTo(x, 15); ctx.lineTo(x, 255); ctx.stroke(); }
+      for (let y = 20; y < 260; y += 40) { ctx.beginPath(); ctx.moveTo(15, y); ctx.lineTo(505, y); ctx.stroke(); }
+
+      ctx.strokeStyle = "#f87171"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(30, oy); ctx.lineTo(490, oy); ctx.stroke();
+      ctx.fillStyle = "#fca5a5"; ctx.font = "bold 12px sans-serif";
+      ctx.fillText(labelX, 452, oy - 7);
+
+      ctx.strokeStyle = "#4ade80"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(ox, 22); ctx.lineTo(ox, 250); ctx.stroke();
+      ctx.fillStyle = "#86efac";
+      ctx.fillText(labelY, ox + 8, 34);
+
+      if (show3D) {
+        ctx.strokeStyle = "#c084fc"; ctx.setLineDash([5, 4]); ctx.lineWidth = 1.8;
+        ctx.beginPath(); ctx.moveTo(ox - 70, oy + 65); ctx.lineTo(ox + 80, oy - 72); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = "#d8b4fe"; ctx.fillText("البُعد ٣", ox + 75, oy - 76);
+      }
+      ctx.restore();
+    }
+
+    let animId = null;
+    function initSimulation(id) {
+      if (animId) cancelAnimationFrame(animId);
+      const canvas = document.getElementById("simCanvas");
+      const ctx = canvas.getContext("2d");
+      const ctrl = document.getElementById("simControls");
+      ctrl.innerHTML = "";
+      let t = 0;
+
+      if (id === "atom_levels") {
+        let level = 2;
+        ctrl.innerHTML = `
+          <button class="btn-teal" id="upLvl">إثارة لمستوى أعلى</button>
+          <button class="btn-gold" id="downLvl">هبوط وانبعاث فوتون</button>
+        `;
+        document.getElementById("upLvl").onclick = () => { level = 3; };
+        document.getElementById("downLvl").onclick = () => { level = 1; };
+
+        const loop = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const cx = 260, cy = 140;
+          drawAxes(ctx, cx, cy, true, "+س", "+ص");
+
+          // نواة الذرة
+          ctx.fillStyle = "#f97316";
+          ctx.beginPath(); ctx.arc(cx, cy, 12, 0, Math.PI * 2); ctx.fill();
+
+          // مدارات الطاقة
+          const radii = [36, 62, 88];
+          radii.forEach((r, idx) => {
+            ctx.strokeStyle = "rgba(148, 163, 184, 0.45)";
+            ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+            ctx.fillStyle = "#cbd5e1"; ctx.font = "11px sans-serif";
+            ctx.fillText(`ن=${idx + 1}`, cx + r + 4, cy);
+          });
+
+          const curR = radii[level - 1];
+          const ex = cx + curR * Math.cos(t * 0.05);
+          const ey = cy + curR * Math.sin(t * 0.05);
+          ctx.fillStyle = "#38bdf8";
+          ctx.beginPath(); ctx.arc(ex, ey, 6, 0, Math.PI * 2); ctx.fill();
+
+          ctx.fillStyle = "#5eead4"; ctx.font = "bold 12px sans-serif";
+          ctx.fillText(`مستوى الطاقة الحالي: ن = ${level} | ط فوتون = ط₂ − ط₁`, 16, 22);
+
+          t++;
+          animId = requestAnimationFrame(loop);
+        };
+        loop();
+      } else {
+        let halfLives = 2;
+        ctrl.innerHTML = `<label>عدد فترات عمر النصف (ن): <input type="range" min="0" max="5" value="2" id="hlRange"></label>`;
+        document.getElementById("hlRange").oninput = (e) => { halfLives = Number(e.target.value); };
+
+        const loop = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const ox = 75, oy = 215;
+          drawAxes(ctx, ox, oy, true, "+س (فترات عمر النصف)", "+ص (النسبة المتبقية)");
+
+          // منحنى الاضمحلال الأسي
+          ctx.strokeStyle = "#38bdf8"; ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          for (let k = 0; k <= 5; k += 0.1) {
+            const xx = ox + k * 72;
+            const frac = Math.pow(0.5, k);
+            const yy = oy - frac * 155;
+            if (k === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
+          }
+          ctx.stroke();
+
+          // النقطة الحالية
+          const curFrac = Math.pow(0.5, halfLives);
+          const px = ox + halfLives * 72;
+          const py = oy - curFrac * 155;
+          ctx.fillStyle = "#fbbf24";
+          ctx.beginPath(); ctx.arc(px, py, 7, 0, Math.PI * 2); ctx.fill();
+
+          ctx.fillStyle = "#5eead4"; ctx.font = "bold 12px sans-serif";
+          ctx.fillText(`ن = ${halfLives} فترة ⇒ المتبقي = ١/${Math.pow(2, halfLives)} (${(curFrac * 100).toFixed(1)}%)`, 16, 22);
+
+          animId = requestAnimationFrame(loop);
+        };
+        loop();
+      }
+    }
+
+    function openModal(title, html) {
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalBody").innerHTML = html;
+      document.getElementById("modalBackdrop").classList.add("open");
+    }
+
+    function closeModal(e) {
+      if (!e || e.target.id === "modalBackdrop") document.getElementById("modalBackdrop").classList.remove("open");
+    }
+
+    function openOriginalBook() {
+      const l = lessons[state.pageIndex];
+      openModal(`📖 الكتاب الأصلي — ${l.title}`, `<div class="panel">${l.originalText}</div>`);
+    }
+
+    function openUnitReview() {
+      const html = unitReviewQuestions.map((item, idx) => `
+        <div class="panel">
+          <div style="font-weight:700;">${item.q}</div>
+          <button class="btn-teal" style="margin-top:8px;" onclick="toggleSol('sol_${idx}')">إظهار / إخفاء الحل</button>
+          <div class="solution-box" id="sol_${idx}">${item.a}</div>
+        </div>
+      `).join("");
+      openModal("✅ حل تقويم الوحدة الرابعة كاملاً (الفيزياء الذرية والنووية)", html);
+    }
+
+    function toggleSol(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle("show");
+    }
+
+    function speakText(txt) {
+      if (!state.soundEnabled || !("speechSynthesis" in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(txt.replace(/<[^>]+>/g, ""));
+        u.lang = "ar-SA";
+        window.speechSynthesis.speak(u);
+      } catch (e) {}
+    }
+
+    function openTeacherChat() {
+      const logHtml = state.chatHistory.map(m => `<div class="msg ${m.from}">${m.text}</div>`).join("");
+      openModal("🤖 المدرس الذكي (Pollinations AI — أ. عمر حسان عبره)", `
+        <div class="chat-log" id="chatLog">${logHtml}</div>
+        <div style="display:flex;gap:8px;">
+          <input id="chatInput" type="text" placeholder="اكتب سؤالك في الفيزياء الذرية والنووية..." style="flex:1;padding:9px 12px;border-radius:10px;border:1px solid #cbd5e1;font-family:inherit;" />
+          <button class="btn-teal" onclick="sendChat()">إرسال</button>
+        </div>
+      `);
+    }
+
+    async function sendChat() {
+      const input = document.getElementById("chatInput");
+      const val = input.value.trim();
+      if (!val) return;
+      const l = lessons[state.pageIndex];
+      state.chatHistory.push({ from: "user", text: val });
+      state.chatHistory.push({ from: "bot", text: "⏳ جارٍ الاتصال بالذكاء الاصطناعي وتوليد الإجابة..." });
+      openTeacherChat();
+
+      const promptText = `أنت مساعد الأستاذ عمر حسان عبره (737219181) في كتاب فيزياء ثالث ثانوي (المنهج اليمني - الوحدة الرابعة: الفيزياء الذرية والنووية). الدرس الحالي: ${l.title}. القانون: ${l.law}. أجب بالعربية الفصحى المبسطة مستخدماً الرموز العربية (ط، هـ، ت، ل، ك).\nالسؤال: ${val}`;
+      try {
+        const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(promptText)}`);
+        if (!res.ok) throw new Error("Failed");
+        const reply = (await res.text()).trim();
+        state.chatHistory[state.chatHistory.length - 1] = { from: "bot", text: reply };
+        speakText(reply);
+      } catch (e) {
+        const fb = `في درس (${l.title}): ${l.summary} | القانون: ${l.law}`;
+        state.chatHistory[state.chatHistory.length - 1] = { from: "bot", text: fb };
+        speakText(fb);
+      }
+      openTeacherChat();
+    }
+
+    checkAccessStatus();
+    renderPage();
+  </script>
+</body>
+</html>
