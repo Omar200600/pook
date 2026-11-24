@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ثري دي اكسيس | فيزياء ثالث ثانوي - الوحدة الثانية: التيار المتردد</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --ink: #132238;
+      --muted: #52647a;
+      --primary: #0f4c81;
+      --primary-2: #1976d2;
+      --accent: #0d9488;
+      --gold: #d97706;
+      --ok: #15803d;
+      --err: #b91c1c;
+      --border: #dce5f0;
+      --shadow: 0 8px 24px rgba(19, 34, 56, 0.07);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+      background: linear-gradient(180deg, #eef4fb 0%, var(--bg) 100%);
+      color: var(--ink);
+      line-height: 1.75;
+    }
+    header.topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(135deg, #0b2d4d 0%, var(--primary) 65%, var(--primary-2) 100%);
+      color: #fff;
+      padding: 8px 14px;
+      box-shadow: 0 3px 14px rgba(11, 45, 77, 0.22);
+    }
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .brand h1 { margin: 0; font-size: 1rem; font-weight: 800; }
+    .brand small { display: block; font-size: 0.76rem; opacity: 0.9; }
+    .menu-toggle-btn {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 12px;
+      font-size: 0.84rem;
+      border-radius: 9px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tools-drawer {
+      max-width: 1180px;
+      margin: 8px auto 0;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      display: none;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: flex-end;
+    }
+    .tools-drawer.open { display: flex; }
+
+    button, .btn-link {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      border-radius: 9px;
+      padding: 7px 12px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.12s ease, opacity 0.15s ease;
+    }
+    button:hover, .btn-link:hover { transform: translateY(-1px); }
+    .btn-light { background: #fff; color: var(--primary); }
+    .btn-gold { background: #fbbf24; color: #1f2937; }
+    .btn-teal { background: #0d9488; color: #fff; }
+    .btn-purple { background: #7c3aed; color: #fff; }
+    .btn-red { background: #dc2626; color: #fff; }
+    .btn-blue { background: #2563eb; color: #fff; }
+    .btn-green { background: #16a34a; color: #fff; }
+    .btn-outline {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 14px auto 28px;
+      padding: 0 12px;
+    }
+    .status-strip {
+      background: #fffbeb;
+      border: 1.5px solid #f59e0b;
+      border-radius: 12px;
+      padding: 9px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .status-strip.warn { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
+    .status-strip.pro { background: #ecfdf5; border-color: #10b981; color: #065f46; }
+
+    .progress-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .bar-wrap {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 20%;
+      background: linear-gradient(90deg, var(--accent), var(--primary-2));
+      transition: width 0.35s ease;
+    }
+    .page-dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .dot-btn {
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      background: #eef2f7;
+      color: var(--ink);
+    }
+    .dot-btn.active { background: var(--primary); color: #fff; }
+
+    .book-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.22s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .lesson-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+    .lesson-title { margin: 0; font-size: 1.32rem; color: var(--primary); }
+    .lesson-btns { display: flex; flex-wrap: wrap; gap: 7px; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 880px) { .grid-2 { grid-template-columns: 1fr; } }
+    .panel {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 13px;
+      padding: 14px;
+      margin-bottom: 13px;
+    }
+    .panel h3 { margin: 0 0 8px; font-size: 1.02rem; color: var(--primary); }
+    .law-box {
+      background: #eff6ff;
+      border-right: 4px solid var(--primary-2);
+      padding: 10px 13px;
+      border-radius: 9px;
+      margin: 10px 0 0;
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+    .sim-box {
+      background: #081324;
+      color: #f8fafc;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      border: 1px solid #1e3a5f;
+    }
+    .sim-box h3 { margin: 0 0 8px; color: #5eead4; font-size: 1rem; }
+    canvas {
+      width: 100%;
+      height: 270px;
+      background: #0b1b33;
+      border-radius: 10px;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+    .axis-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.78rem;
+      margin-top: 7px;
+      color: #cbd5e1;
+    }
+    .axis-pill {
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+      font-weight: 700;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 0.84rem;
+    }
+    .controls label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.08);
+      padding: 5px 9px;
+      border-radius: 8px;
+    }
+
+    .extra-drawer { margin-top: 10px; padding: 13px; border-radius: 12px; display: none; }
+    .extra-drawer.open { display: block; }
+    .drawer-simple { background: #fefce8; border: 1px solid #fde047; color: #422006; }
+    .drawer-amazing {
+      background: linear-gradient(135deg, #fdf2f8 0%, #eff6ff 50%, #ecfdf5 100%);
+      border: 2px solid #8b5cf6;
+      color: #1e1b4b;
+    }
+    .drawer-media { background: #f0f9ff; border: 2px solid #0284c7; color: #0c4a6e; }
+    .amazing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .amazing-chip {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid #ddd6fe;
+      font-size: 0.89rem;
+    }
+    .media-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .career-tag {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+    }
+    .q-card {
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 12px;
+      margin-top: 8px;
+    }
+    .opt-btn {
+      display: block;
+      width: 100%;
+      text-align: right;
+      margin-top: 6px;
+      background: #f1f5f9;
+      color: var(--ink);
+      border: 1px solid #cbd5e1;
+    }
+    .opt-btn.correct { background: #dcfce7; border-color: var(--ok); color: #14532d; }
+    .opt-btn.wrong { background: #fee2e2; border-color: var(--err); color: #7f1d1d; }
+    .pager {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 13px;
+      border-top: 2px solid #edf2f7;
+    }
+    .btn-nav { background: var(--primary); color: #fff; padding: 9px 16px; font-size: 0.92rem; }
+    .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.72);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 12px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: #fff;
+      color: var(--ink);
+      width: 100%;
+      max-width: 820px;
+      max-height: 88vh;
+      overflow-y: auto;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+    .modal-head h2 { margin: 0; font-size: 1.1rem; color: var(--primary); }
+    .close-x { background: #fee2e2; color: #991b1b; }
+    .chat-log {
+      max-height: 250px;
+      overflow-y: auto;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 11px;
+      padding: 11px;
+      margin-bottom: 10px;
+    }
+    .msg { padding: 8px 12px; border-radius: 10px; margin-bottom: 8px; font-size: 0.9rem; white-space: pre-line; }
+    .msg.bot { background: #e0f2fe; color: #0c4a6e; }
+    .msg.user { background: #dcfce7; color: #14532d; text-align: left; }
+    .solution-box {
+      background: #f0fdf4;
+      border-right: 4px solid var(--ok);
+      padding: 11px 13px;
+      border-radius: 9px;
+      margin-top: 9px;
+      display: none;
+      font-size: 0.92rem;
+      line-height: 1.85;
+    }
+    .solution-box.show { display: block; }
+    .step-line { margin-bottom: 5px; }
+
+    .kuraimi-guide {
+      background: #f0fdf4;
+      border: 1.5px solid #16a34a;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+    .confirm-box {
+      background: #fff7ed;
+      border: 2px solid #ea580c;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .receipt-box {
+      background: #dcfce7;
+      border: 2px solid #15803d;
+      color: #14532d;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 12px;
+      display: none;
+      font-weight: 700;
+    }
+
+    footer.unit-footer {
+      background: linear-gradient(135deg, #0b2d4d, #0f4c81);
+      color: #fff;
+      padding: 18px 14px;
+      margin-top: 32px;
+      border-top: 4px solid #fbbf24;
+    }
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+    }
+    .footer-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <h1>ثري دي اكسيس — فيزياء ثالث ثانوي (الوحدة الثانية: التيار المتردد)</h1>
+        <small>إعداد وتطوير: المطور الأستاذ عمر حسان عبره | الكريمي: 737219181 (خارج اليمن: 00967737219181)</small>
+      </div>
+      <button class="menu-toggle-btn" id="menuToggleBtn" onclick="toggleTopTools()">☰ أدوات الكتاب والتقويم</button>
+    </div>
+    <div class="tools-drawer" id="topToolsDrawer">
+      <a class="btn-link btn-light" href="index.html">🏠 فهرس الوحدات</a>
+      <a class="btn-link btn-light" href="unit1.html">📘 الوحدة الأولى</a>
+      <button class="btn-light" onclick="openOriginalBook()">📖 الكتاب الأصلي للدرس</button>
+      <button class="btn-gold" onclick="openUnitReview()">✅ حل تقويم الوحدة الثانية</button>
+      <button class="btn-teal" onclick="openTeacherChat()">🤖 المدرس الذكي (Pollinations AI)</button>
+      <button class="btn-gold" onclick="openPaymentModal(false)">💳 الإيداع عبر الكريمي والتفعيل</button>
+      <button class="btn-outline" id="soundToggleBtn" onclick="toggleSound()">🔊 الصوت: مفعّل</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="status-strip" id="trialStrip">
+      <span id="trialLabel">جارٍ فحص حالة النسخة...</span>
+      <button class="btn-gold" onclick="openPaymentModal(false)">💳 الإيداع عبر الكريمي والتفعيل</button>
+    </div>
+
+    <div class="progress-box">
+      <div class="progress-top">
+        <span id="pageIndicator">الصفحة 1 من 5</span>
+        <span id="scoreBadge">نقاط التفاعل: 0 ⭐</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill" id="progressFill"></div></div>
+      <div class="page-dots" id="pageDots"></div>
+    </div>
+
+    <main class="book-card" id="bookContainer"></main>
+  </div>
+
+  <!-- التذييل الموحد للوحدة الثانية -->
+  <footer class="unit-footer">
+    <div class="footer-inner">
+      <div>
+        <div><strong>تصميم وتطوير: المطور الأستاذ عمر حسان عبره</strong> — منصة <strong>ثري دي اكسيس</strong> التعليمية</div>
+        <div style="opacity:0.9;">الإيداع عبر مصرف الكريمي: داخل اليمن <strong>737219181</strong> | من خارج اليمن <strong>00967737219181</strong></div>
+      </div>
+      <div class="footer-actions">
+        <a class="btn-link btn-light" href="tel:+967737219181">📞 اتصال مباشر</a>
+        <a class="btn-link btn-green" href="https://wa.me/967737219181?text=السلام%20عليكم%20أستاذ%20عمر%20حسان%20عبره" target="_blank" rel="noopener noreferrer">💬 واتساب مباشر</a>
+        <button class="btn-link btn-gold" onclick="openPaymentModal(false)">💳 إيداع وتفعيل</button>
+        <a class="btn-link btn-outline" href="index.html">🏠 الرئيسية</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- نافذة الكتاب الأصلي / التقويم / المدرس الذكي -->
+  <div class="modal-backdrop" id="modalBackdrop" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-head">
+        <h2 id="modalTitle">عنوان النافذة</h2>
+        <button class="close-x" onclick="closeModal()">✕ إغلاق</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- نافذة الإيداع عبر مصرف الكريمي وتأكيد الرقم -->
+  <div class="modal-backdrop" id="paymentBackdrop">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="payModalTitle">💳 الإيداع عبر مصرف الكريمي وطلب كود التفعيل</h2>
+        <button class="close-x" id="closePayModalBtn" onclick="closePaymentModal()">✕ إغلاق</button>
+      </div>
+
+      <div class="kuraimi-guide">
+        <div style="font-weight:800;color:#14532d;margin-bottom:4px;">🏦 خطوات الإيداع في مصرف الكريمي:</div>
+        <div>1️⃣ توجّه إلى أقرب فرع أو نقطة لمصرف الكريمي (أو عبر تطبيق الكريمي جوال).</div>
+        <div>2️⃣ أخبر الموظف المختص بالإيداع لحساب: <strong>عمر حسن محمد عود إبراهيم (الأستاذ عمر حسان عبره)</strong>.</div>
+        <div>3️⃣ رقم الحساب داخل اليمن: <strong style="color:#0f4c81;font-size:1.05rem;">737219181</strong> | ومن خارج اليمن: <strong style="color:#0f4c81;font-size:1.05rem;">00967737219181</strong>.</div>
+        <div>4️⃣ بعد الإيداع، أكّد العملية بالأسفل وأرسل طلبك عبر واتساب ليصلك <strong>كود التفعيل الخاص ببصمة جهازك (<span id="fpValue"></span>)</strong>.</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+        <div>
+          <label style="font-size:0.84rem;font-weight:700;">اسم المودِع (الطالب / المشتري):</label>
+          <input type="text" id="buyerName" placeholder="اكتب اسمك كما في الإيداع" style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid #cbd5e1;font-family:inherit;" />
+        </div>
+        <div>
+          <label style="font-size:0.84rem;font-weight:700;">الباقة المدفوعة:</label>
+          <select id="planType" style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid #cbd5e1;font-family:inherit;">
+            <option value="شهري">اشتراك شهري</option>
+            <option value="سنوي">اشتراك سنوي</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="confirm-box">
+        <div style="font-weight:800;color:#9a3412;">⚠️ رسالة تأكيد فورية قبل إرسال الطلب:</div>
+        <div style="margin-top:4px;font-size:0.9rem;">
+          الرقم المعتمد للإيداع في الكريمي هو: <strong>737219181</strong> (أو <strong>00967737219181</strong> من خارج اليمن) باسم <strong>عمر حسن محمد عود إبراهيم</strong>.
+          <br><strong>هل هذا هو الرقم الذي أودعت له؟</strong>
+        </div>
+        <label style="display:flex;align-items:center;gap:7px;margin-top:8px;font-weight:800;cursor:pointer;">
+          <input type="checkbox" id="confirmTargetNum" />
+          <span>نعم، أؤكد أن هذا الرقم (737219181 / 00967737219181) هو الرقم الذي أودعت له.</span>
+        </label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+          <button class="btn-green" onclick="submitDepositRequest()">✅ تأكيد الإيداع وتسجيل الطلب</button>
+          <a class="btn-link btn-blue" id="waConfirmLink" href="#" target="_blank" rel="noopener noreferrer">📲 إرسال طلب كود التفعيل إلى واتساب الأستاذ عمر</a>
+        </div>
+      </div>
+
+      <div class="receipt-box" id="receiptConfirmationBox"></div>
+
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid #e2e8f0;">
+        <label style="font-weight:700;">أدخل كود التفعيل الذي أرسله لك الأستاذ عمر عبر واتساب:</label>
+        <div style="display:flex;gap:8px;margin-top:6px;">
+          <input type="text" id="unlockCodeInput" placeholder="مثال: AX-M-1234 أو AX-Y-5678" style="flex:1;padding:9px 12px;border-radius:9px;border:1px solid #cbd5e1;font-family:inherit;" />
+          <button class="btn-teal" onclick="applyUnlockCode()">تفعيل الآن</button>
+        </div>
+        <div id="unlockStatusMsg" style="font-weight:700;margin-top:6px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    const TRIAL_DAYS = 7;
+    const WA_PHONE = "967737219181";
+
+    function getDeviceFp() {
+      let fp = localStorage.getItem("3daxis_fp");
+      if (!fp) {
+        const raw = [navigator.userAgent, screen.width + "x" + screen.height, Math.floor(1000 + Math.random() * 9000)].join("|");
+        let h = 0;
+        for (let i = 0; i < raw.length; i++) h = ((h << 5) - h) + raw.charCodeAt(i);
+        fp = "AX-" + Math.abs(h).toString(36).toUpperCase().slice(0, 6);
+        localStorage.setItem("3daxis_fp", fp);
+      }
+      if (!localStorage.getItem("3daxis_first_run")) {
+        localStorage.setItem("3daxis_first_run", Date.now().toString());
+      }
+      return fp;
+    }
+
+    function checkAccessStatus() {
+      const fp = getDeviceFp();
+      document.getElementById("fpValue").textContent = fp;
+      const now = Date.now();
+      const subUntil = Number(localStorage.getItem("3daxis_sub_until") || 0);
+      const firstRun = Number(localStorage.getItem("3daxis_first_run") || now);
+      const strip = document.getElementById("trialStrip");
+      const label = document.getElementById("trialLabel");
+
+      if (subUntil > now) {
+        const daysLeft = Math.ceil((subUntil - now) / DAY_MS);
+        strip.className = "status-strip pro";
+        label.textContent = `✅ الاشتراك مفعّل — متبقي ${daysLeft} يوماً`;
+        return true;
+      }
+
+      const rem = Math.ceil(TRIAL_DAYS - ((now - firstRun) / DAY_MS));
+      if (rem <= 0) {
+        strip.className = "status-strip warn";
+        label.textContent = "⛔ انتهت الفترة التجريبية (٧ أيام). يرجى الإيداع في الكريمي وتفعيل الاشتراك.";
+        openPaymentModal(true);
+        return false;
+      } else if (rem <= 3) {
+        strip.className = "status-strip warn";
+        label.textContent = `⚠️ تنبيه: سيتوقف البرنامج التجريبي خلال ${rem} أيام! بادر بالاشتراك عبر الكريمي.`;
+        return true;
+      } else {
+        strip.className = "status-strip";
+        label.textContent = `🎁 نسخة تجريبية مجانية — متبقي ${rem} أيام من أصل ٧ أيام`;
+        return true;
+      }
+    }
+
+    function openPaymentModal(locked) {
+      document.getElementById("paymentBackdrop").classList.add("open");
+      document.getElementById("closePayModalBtn").style.display = locked ? "none" : "inline-flex";
+      document.getElementById("payModalTitle").textContent = locked
+        ? "⛔ انتهت الفترة التجريبية — يرجى الإيداع في الكريمي والتفعيل"
+        : "💳 الإيداع عبر مصرف الكريمي وطلب كود التفعيل";
+      updateWaConfirmLink();
+    }
+
+    function closePaymentModal() {
+      document.getElementById("paymentBackdrop").classList.remove("open");
+    }
+
+    function updateWaConfirmLink() {
+      const name = document.getElementById("buyerName").value.trim() || "طالب / مشتري";
+      const plan = document.getElementById("planType").value;
+      const fp = getDeviceFp();
+      const msg = `السلام عليكم أستاذ عمر حسان عبره، أنا (${name}) أؤكد أنني أودعت لحسابكم في الكريمي (737219181) لاشتراك (${plan}). أرجو إرسال كود التفعيل لبصمة جهازي: ${fp}`;
+      document.getElementById("waConfirmLink").href = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`;
+    }
+
+    function submitDepositRequest() {
+      const checked = document.getElementById("confirmTargetNum").checked;
+      const name = document.getElementById("buyerName").value.trim() || "مستخدم";
+      const plan = document.getElementById("planType").value;
+      const fp = getDeviceFp();
+      const box = document.getElementById("receiptConfirmationBox");
+
+      if (!checked) {
+        box.style.display = "block";
+        box.style.background = "#fee2e2";
+        box.style.borderColor = "#b91c1c";
+        box.style.color = "#7f1d1d";
+        box.innerHTML = `❌ يرجى أولاً التأكيد على السؤال: <strong>هل هذا هو الرقم (737219181 / 00967737219181) الذي أودعت له؟</strong>`;
+        return;
+      }
+
+      updateWaConfirmLink();
+      const orderRef = "KRM-" + Math.floor(100000 + Math.random() * 899999);
+      box.style.display = "block";
+      box.style.background = "#dcfce7";
+      box.style.borderColor = "#15803d";
+      box.style.color = "#14532d";
+      box.innerHTML = `
+        ✅ <strong>تم استلام طلبك بنجاح!</strong><br>
+        • رقم المرجع: <strong>${orderRef}</strong> | الاسم: <strong>${name}</strong> | الباقة: <strong>${plan}</strong><br>
+        • حساب الإيداع المؤكَّد: <strong>737219181</strong> | بصمة جهازك: <strong>${fp}</strong><br>
+        • اضغط الآن على زر الواتساب بالأعلى لإرسال الطلب إلى الأستاذ عمر واستلام كود التفعيل.
+      `;
+    }
+
+    function computeCode(fp, planCode) {
+      let sum = 0;
+      const str = fp + "_" + planCode + "_OMAR_EBRAH_967737219181";
+      for (let i = 0; i < str.length; i++) sum += str.charCodeAt(i) * (i + 5);
+      return `AX-${planCode}-${(sum % 8999) + 1000}`;
+    }
+
+    function applyUnlockCode() {
+      const fp = getDeviceFp();
+      const code = document.getElementById("unlockCodeInput").value.trim().toUpperCase();
+      const msg = document.getElementById("unlockStatusMsg");
+      if (code === computeCode(fp, "M")) {
+        localStorage.setItem("3daxis_sub_until", (Date.now() + 30 * DAY_MS).toString());
+        msg.style.color = "#15803d";
+        msg.textContent = "✅ تم تفعيل الاشتراك الشهري (٣٠ يوماً) بنجاح!";
+        setTimeout(() => { closePaymentModal(); checkAccessStatus(); }, 800);
+      } else if (code === computeCode(fp, "Y")) {
+        localStorage.setItem("3daxis_sub_until", (Date.now() + 365 * DAY_MS).toString());
+        msg.style.color = "#15803d";
+        msg.textContent = "✅ تم تفعيل الاشتراك السنوي (٣٦٥ يوماً) بنجاح!";
+        setTimeout(() => { closePaymentModal(); checkAccessStatus(); }, 800);
+      } else {
+        msg.style.color = "#b91c1c";
+        msg.textContent = "❌ كود التفعيل غير صحيح أو غير مطابق لبصمة هذا الجهاز.";
+      }
+    }
+
+    const state = {
+      pageIndex: 0,
+      score: 0,
+      soundEnabled: true,
+      answered: {},
+      chatHistory: [
+        {
+          from: "bot",
+          text: "أهلاً بك يا بني في الوحدة الثانية (التيار المتردد) بإشراف الأستاذ عمر حسان عبره. اسألني أي سؤال في الدرس الحالي وسأجيبك عبر الذكاء الاصطناعي."
+        }
+      ]
+    };
+
+    const lessons = [
+      {
+        id: "ac_gen",
+        title: "١. التيار المتردد والمولد الكهربائي (الدينامو)",
+        subtitle: "توليد القوة الدافعة الكهربائية المترددة الجيبية من دوران ملف داخل مجال مغناطيسي",
+        law: "ق د ك = ق د ك عظمى × جا (ω ز)   |   ق د ك عظمى = ن × ب × س × ω   |   ω = ٢ π ت",
+        summary: "التيار المتردد (المتناوب) هو تيار يتغير مقداره واتجاهه دورياً بانتظام مع الزمن نتيجة دوران ملف موصل بسرعة زاوية منتظمة (ω) داخل مجال مغناطيسي منتظم.",
+        simpleExplain: "عندما يدور ملف سلكي بين قطبي مغناطيس، يقطع خطوط الفيض المغناطيسي بزوايا تتغير باستمرار؛ فتتولد قوة دافعة كهربائية تزيد للصفر ثم للعظمى في نصف الدورة الأول، وتنعكس في النصف الثاني مكونة موجة جيبية.",
+        career: "مهندس محطات توليد الطاقة الكهربائية والمولدات",
+        careerDesc: "يصمم ويشرف على تشغيل المولدات التوربينية في محطات الكهرباء وضبط التردد القياسي (٥٠ هرتز في اليمن) واستقرار الجهد.",
+        media: [
+          { label: "🎬 أنيميشن 3D: كيف يعمل المولد الكهربائي المتردد", url: "https://www.youtube.com/watch?v=MW1GZ7C2c7M", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: مولد التيار الكهربائي", url: "https://phet.colorado.edu/sims/html/faradays-electromagnetic-lab/latest/faradays-electromagnetic-lab_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "لماذا نستخدم التيار المتردد في نقل الكهرباء؟", d: "لأنه يمكن رفع جهده وخفضه بسهولة بواسطة المحولات الكهربائية لتقليل الفقد الحراري في الأسلاك لمسافات طويلة." },
+          { t: "تردد الشبكة في اليمن", d: "يعمل التيار المنزلي بتردد ٥٠ هرتز، أي يكمل ٥٠ دورة كاملة في الثانية الواحدة وينعكس اتجاهه ١٠٠ مرة كل ثانية." },
+          { t: "ذروة القوة الدافعة", d: "تبلغ ق د ك قيمتها العظمى عندما يكون مستوى الملف موازياً لخطوط المجال المغناطيسي (زاوية الدوران ٩٠° مع العمودي)." }
+        ],
+        originalText: `<p><strong>التيار المتردد (Alternating Current):</strong> تيار يتغير مقداره واتجاهه دورياً مع الزمن وفق دالة جيبية: <strong>ت = ت عظمى × جا(ω ز)</strong>.</p>`,
+        quiz: {
+          q: "سؤال وزاري: تبلغ القوة الدافعة الكهربائية اللحظية في ملف الدينامو قيمتها العظمى عندما يكون مستوى الملف:",
+          opts: [
+            "عمودياً على خطوط الفيض المغناطيسي",
+            "موازياً لخطوط الفيض المغناطيسي",
+            "مائلاً بزاوية ٤٥° مع خطوط الفيض"
+          ],
+          ans: 1,
+          why: "عندما يكون مستوى الملف موازياً لخطوط الفيض تكون الزاوية بين العمودي على الملف والمجال ٩٠°، و جا ٩٠° = ١ (قيمة عظمى)."
+        }
+      },
+      {
+        id: "ac_eff",
+        title: "٢. القيمة الفعالة للتيار والجهد المتردد",
+        subtitle: "مقارنة الأثر الحراري للتيار المتردد بالتيار المستمر وتقويم التيار",
+        law: "ت فعالة = ت عظمى / √٢ ≈ ٠٫٧٠٧ ت عظمى   |   جـ فعالة = جـ عظمى / √٢ ≈ ٠٫٧٠٧ جـ عظمى",
+        summary: "القيمة الفعالة للتيار المتردد هي شدة التيار المستمر الذي يولد نفس الكمية من الحرارة في نفس المقاومة خلال نفس الفترة الزمنية، وتساوي ٠٫٧٠٧ من القيمة العظمى.",
+        simpleExplain: "لأن التيار المتردد يصعد ويهبط باستمرار ولا يثبت عند رقم واحد، نستخدم (القيمة الفعالة) كقيمة مكافئة للتيار المستمر تعطي نفس القدرة الحرارية، وهي القيمة التي تقرأها أجهزة الأميتر والفولتميتر الحرارية.",
+        career: "مهندس القياسات الكهربائية والمعايرة والأجهزة",
+        careerDesc: "يعاير أجهزة قياس الجهد والتيار (الأميتر الحراري والرقمي) ويحدد قدرة التحمل العظمى للعوازل والمكونات الكهربائية.",
+        media: [
+          { label: "🎬 أنيميشن: القيمة العظمى والقيمة الفعالة للتيار", url: "https://www.youtube.com/watch?v=q-74f_x7E7k", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: دوائر التيار المتردد", url: "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/latest/circuit-construction-kit-ac_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "جهد المنزل ٢٢٠ فولت هو قيمة فعالة!", d: "عندما نقول إن كهرباء المنزل ٢٢٠ فولت، فإن القيمة العظمى للجهد تصل فعلياً إلى ٢٢٠ × √٢ ≈ ٣١١ فولت." },
+          { t: "الأميتر الحراري", d: "يعتمد عمله على تمدد سلك البلاتين والإيريديوم بالحرارة، لذا يصلح لقياس التيار المستمر والقيمة الفعالة للتيار المتردد معاً." },
+          { t: "تدريج الأميتر الحراري غير منتظم", d: "لأن الطاقة الحرارية تتناسب طردياً مع مربع شدة التيار (ط = ت² × م × ز)." }
+        ],
+        originalText: `<p><strong>القيمة الفعالة:</strong> ت فعالة = ت عظمى ÷ √٢ = ٠٫٧٠٧ ت عظمى، وتُقاس بالأميتر الحراري ذي التدريج غير المنتظم.</p>`,
+        quiz: {
+          q: "سؤال وزاري: إذا كانت القيمة العظمى لجهد متردد تساوي ٢٠٠√٢ فولت، فإن قيمته الفعالة تساوي:",
+          opts: ["٢٠٠ فولت", "٤٠٠ فولت", "١٠٠√٢ فولت"],
+          ans: 0,
+          why: "جـ فعالة = جـ عظمى ÷ √٢ = (٢٠٠√٢) ÷ √٢ = ٢٠٠ فولت."
+        }
+      },
+      {
+        id: "ac_rlc_parts",
+        title: "٣. دوائر المقاومة والملف والمكثف في التيار المتردد",
+        subtitle: "المفاعلة الحثية (م حث) والمفاعلة السعوية (م سع) وزاوية الطور بين الجهد والتيار",
+        law: "م حث = ω حث = ٢ π ت حث   |   م سع = ١ / (ω سع) = ١ / (٢ π ت سع)",
+        summary: "في المقاومة الأومية يتفق الجهد والتيار في الطور؛ في الملف النقي يتقدم الجهد على التيار بـ ٩٠°؛ وفي المكثف يتأخر الجهد عن التيار بـ ٩٠°.",
+        simpleExplain: "المقاومة تعيق التيار ولا تعتمد على التردد. أما الملف فيعاكس التغير السريع للتيار (تزيد إعاقته بزيادة التردد)، بينما المكثف يشحن ويفرغ فيسمح بمرور الترددات العالية بسهولة أكبر (تقل إعاقته بزيادة التردد).",
+        career: "مهندس تصميم الدوائر الإلكترونية والمرشحات الصوتية",
+        careerDesc: "يستخدم الملفات والمكثفات لفصل الترددات العالية عن المنخفضة في أنظمة الصوت والاتصالات ومكبرات الإشارة.",
+        media: [
+          { label: "🎬 أنيميشن: سلوك الملف والمكثف في التيار المتردد", url: "https://www.youtube.com/watch?v=9G7Q5W8mB7U", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: RLC دوائر", url: "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/latest/circuit-construction-kit-ac_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "المكثف يمرر المتردد ويمنع المستمر", d: "بعد تمام شحن المكثف في دائرة التيار المستمر يتوقف مرور التيار، بينما يستمر الشحن والتفريغ في التيار المتردد." },
+          { t: "القدرة المستهلكة في الملف والمكثف النقيين", d: "تساوي صفراً في الدورة الكاملة لأن الطاقة تُختزن كمجال مغناطيسي في الملف أو كهربائي في المكثف ثم تُعاد للمصدر." },
+          { t: "مضخمات الصوت (Crossovers)", d: "توجّه المكثفات الترددات العالية للسماعات الصغيرة، وتوجّه الملفات الترددات المنخفضة للسماعات الكبيرة." }
+        ],
+        originalText: `<p><strong>المفاعلة الحثية والسعوية:</strong> م حث = ٢ π ت حث (تتناسب طردياً مع التردد)، م سع = ١ ÷ (٢ π ت سع) (تتناسب عكسياً مع التردد).</p>`,
+        quiz: {
+          q: "سؤال وزاري: في دائرة تيار متردد تحتوي على مكثف نقي فقط، فإن فرق الجهد الكهربائي:",
+          opts: [
+            "يتقدم على التيار بزاوية طور ٩٠°",
+            "يتأخر عن التيار بزاوية طور ٩٠°",
+            "يتفق مع التيار في الطور"
+          ],
+          ans: 1,
+          why: "في المكثف النقي يتقدم التيار على الجهد بربع دورة (٩٠°)، أي يتأخر الجهد عن التيار بـ ٩٠°."
+        }
+      },
+      {
+        id: "ac_impedance",
+        title: "٤. المعاوقة الكلية لدائرة (م - حث - سع) على التوالي",
+        subtitle: "حساب المعاوقة الكلية (مع) وزاوية الطور (هـ) والقدرة الكهربائية الفعالة",
+        law: "مع = √(م² + (م حث − م سع)²)   |   ظا هـ = (م حث − م سع) / م   |   ت = جـ / مع",
+        summary: "لا تُجمع المقاومة والمفاعلة الحثية والمفاعلة السعوية جمعاً جبرياً؛ بل تُجمع جمعاً اتجاهياً بقاعدة فيثاغورس لتحديد المعاوقة الكلية (مع).",
+        simpleExplain: "لأن جهد المقاومة أفقي، وجهد الملف للأعلى، وجهد المكثف للأسفل، نطرح جهد المكثف من جهد الملف رأسياً ثم نجمع المحصلة مع جهد المقاومة بنظرية فيثاغورس لإيجاد الجهد الكلي والمعاوقة الكلية.",
+        career: "مهندس شبكات التوزيع وتحسين معامل القدرة",
+        careerDesc: "يحسب المعاوقة الكلية للمصانع ويضيف مكثفات لتحسين معامل القدرة (جتا هـ) وتقليل هدر الطاقة الكهربائية.",
+        media: [
+          { label: "🎬 أنيميشن: متجهات الطور والمعاوقة RLC", url: "https://www.youtube.com/watch?v=8rE1_0eN8yM", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: بناء دوائر RLC", url: "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/latest/circuit-construction-kit-ac_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "خواص الدائرة الكهربائية", d: "إذا كانت م حث > م سع فالدائرة ذات خواص حثية (الجهد يتقدم)، وإذا كانت م سع > م حث فالدائرة ذات خواص سعوية (التيار يتقدم)." },
+          { t: "القدرة المستهلكة الفعلية", d: "تُستهلك القدرة في المقاومة الأومية فقط وتُعطى بالعلاقة: قد = جـ فعالة × ت فعالة × جتا هـ." },
+          { t: "متجهات الطور (Phasors)", d: "تحوّل المعادلات المثلثية المعقدة إلى رسم هندسي بسيط بالزوايا والمثلثات القائمة." }
+        ],
+        originalText: `<p><strong>المعاوقة الكلية:</strong> مع = √(م² + (م حث − م سع)²) وتُقاس بالأوم (Ω).</p>`,
+        quiz: {
+          q: "سؤال وزاري: دائرة تيار متردد متوالية فيها م = ٣ أوم، م حث = ٧ أوم، م سع = ٣ أوم، فإن معاوقة الدائرة تساوي:",
+          opts: ["٥ أوم", "١٣ أوم", "٧ أوم"],
+          ans: 0,
+          why: "مع = √(٣² + (٧ − ٣)²) = √(٩ + ١٦) = √٢٥ = ٥ أوم."
+        }
+      },
+      {
+        id: "ac_resonance",
+        title: "٥. الدائرة المهتزة والرنين الكهربائي",
+        subtitle: "توليف الترددات في أجهزة الاستقبال الإذاعي واللاسلكي عند تساوي المفاعلتين",
+        law: "عند الرنين: م حث = م سع  ⇒  مع = م (أقل ما يمكن)  ⇒  ت رنين = ١ / (٢ π √(حث × سع))",
+        summary: "يحدث الرنين الكهربائي عندما يتساوى تردد المصدر مع التردد الطبيعي للدائرة فتتساوى المفاعلة الحثية مع السعوية، فتبلغ المعاوقة أقل قيمة لها ويصل التيار لأقصى قيمة.",
+        simpleExplain: "عندما تدير مؤشر الراديو لاختيار إذاعة معينة، فأنت تغيّر سعة المكثف المتغير حتى يتساوى تردد دائرة الاستقبال مع تردد موجة الإذاعة المطلوبة، فيمر تيارها بأقوى صورة وتسمعها بوضوح.",
+        career: "مهندس الاتصالات اللاسلكية والبث الإذاعي والتلفزيوني",
+        careerDesc: "يصمم دوائر الرنين والمرشحات في الهواتف المحمولة، وأجهزة الراديو، وأنظمة الرادار والواي فاي لالتقاط الإشارات بدقة.",
+        media: [
+          { label: "🎬 أنيميشن: الدائرة المهتزة والرنين الكهربائي", url: "https://www.youtube.com/watch?v=3m2K5-x9zL4", type: "yt" },
+          { label: "🧪 مختبر PhET التفاعلي: الموجات الراديوية والاهتزاز", url: "https://phet.colorado.edu/sims/html/radio-waves/latest/radio-waves_ar.html", type: "sim" }
+        ],
+        amazing: [
+          { t: "تبادل الطاقة في الدائرة المهتزة", d: "تتبادل الطاقة بين مجال كهربائي في المكثف ومجال مغناطيسي في الملف بتردد ثابت يشبه حركة البندول البسيط." },
+          { t: "زاوية الطور عند الرنين تساوي صفراً", d: "عند الرنين يلغي تأثير الملف تأثير المكثف تماماً، فتتصرف الدائرة وكأنها مقاومة أومية خالصة (مع = م)." },
+          { t: "انتقاء القنوات الفضائية واللاسلكية", d: "تعتمد كل أجهزة الاستقبال اللاسلكية على ضبط تردد الرنين لعزل القناة المطلوبة عن آلاف الموجات المحيطة." }
+        ],
+        originalText: `<p><strong>الرنين الكهربائي:</strong> ت رنين = ١ ÷ (٢ π √(حث × سع))، وعنده مع = م و زاوية الطور هـ = ٠°.</p>`,
+        quiz: {
+          q: "سؤال وزاري: في دائرة رنين كهربائي، إذا زادت سعة المكثف إلى أربعة أمثالها مع ثبوت معامل الحث الذاتي، فإن تردد الرنين:",
+          opts: [
+            "يقل إلى النصف",
+            "يزداد إلى الضعف",
+            "يقل إلى الربع"
+          ],
+          ans: 0,
+          why: "تردد الرنين يتناسب عكسياً مع الجذر التربيعي للسعة (√سع)، وبما أن √٤ = ٢ فإن التردد يقل إلى النصف."
+        }
+      }
+    ];
+
+    const unitReviewQuestions = [
+      {
+        q: "السؤال الأول — ضع علامة (✓) أو (✕) مع التعليل:",
+        a: `
+          <div class="step-line">• <strong>١:</strong> القيمة الفعالة للتيار المتردد تساوي ٠٫٧٠٧ من قيمته العظمى <strong>(✓)</strong>.</div>
+          <div class="step-line">• <strong>٢:</strong> المفاعلة السعوية لمكثف تتناسب طردياً مع تردد التيار <strong>(✕)</strong> — بل تتناسب عكسياً مع التردد.</div>
+          <div class="step-line">• <strong>٣:</strong> في حالة الرنين الكهربائي تكون معاوقة الدائرة أكبر ما يمكن <strong>(✕)</strong> — بل أقل ما يمكن وتساوي المقاومة الأومية (مع = م).</div>
+          <div class="step-line">• <strong>٤:</strong> لا يستهلك الملف النقي أو المكثف النقي قدرة كهربائية في الدورة الكاملة <strong>(✓)</strong>.</div>
+        `
+      },
+      {
+        q: "السؤال الثاني: ملف دينامو مكون من ٢٠٠ لفة مساحة كل منها ٠٫٠٥ م² يدور بمعدل ٥٠ دورة/ثانية في مجال مغناطيسي كثافته ٠٫١ تسلا. احسب القوة الدافعة العظمى والفعالة.",
+        a: `
+          <div class="step-line"><strong>المعطيات:</strong> ن = ٢٠٠ ، س = ٠٫٠٥ م² ، ت = ٥٠ هرتز ، ب = ٠٫١ تسلا ، ω = ٢ π ت = ١٠٠ π راديان/ث</div>
+          <div class="step-line"><strong>ق د ك عظمى:</strong> ن × ب × س × ω = ٢٠٠ × ٠٫١ × ٠٫٠٥ × ١٠٠ π = ١٠٠ π ≈ <strong>٣١٤ فولت</strong>.</div>
+          <div class="step-line"><strong>ق د ك فعالة:</strong> ٣١٤ × ٠٫٧٠٧ ≈ <strong>٢٢٢ فولت</strong>.</div>
+        `
+      },
+      {
+        q: "السؤال الثالث: دائرة تيار متردد متوالية تحتوي على مقاومة ٦ أوم، وملف مفاعلته الحثية ١٢ أوم، ومكثف مفاعلته السعوية ٤ أوم، موصلة بمصدر جهده الفعال ٢٠٠ فولت. احسب المعاوقة الكلية وشدة التيار الفعال.",
+        a: `
+          <div class="step-line"><strong>المعاوقة (مع):</strong> √(٦² + (١٢ − ٤)²) = √(٣٦ + ٦٤) = √١٠٠ = <strong>١٠ أوم</strong>.</div>
+          <div class="step-line"><strong>التيار الفعال (ت):</strong> جـ ÷ مع = ٢٠٠ ÷ ١٠ = <strong>٢٠ أمبير</strong>.</div>
+        `
+      },
+      {
+        q: "السؤال الرابع: احسب تردد الرنين لدائرة استقبال تحتوي على ملف معامل حثه الذاتي (١ / π²) هنري ومكثف سعته (٢٥ × ١٠⁻⁶) فاراد.",
+        a: `
+          <div class="step-line"><strong>القانون:</strong> ت رنين = ١ ÷ (٢ π √(حث × سع))</div>
+          <div class="step-line"><strong>التعويض:</strong> حث × سع = (١ / π²) × (٢٥ × ١٠⁻⁶) ⇒ √(حث × سع) = (٥ × ١٠⁻³) ÷ π</div>
+          <div class="step-line">ت رنين = ١ ÷ (٢ π × (٥ × ١٠⁻³ / π)) = ١ ÷ (١٠ × ١٠⁻³) = <strong>١٠٠ هرتز</strong>.</div>
+        `
+      }
+    ];
+
+    function toggleTopTools() {
+      document.getElementById("topToolsDrawer").classList.toggle("open");
+    }
+
+    function playTone(freq = 520, dur = 0.08) {
+      if (!state.soundEnabled) return;
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.frequency.value = freq;
+        gain.gain.value = 0.05;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        setTimeout(() => { osc.stop(); ctx.close(); }, dur * 1000);
+      } catch (e) {}
+    }
+
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      document.getElementById("soundToggleBtn").textContent = state.soundEnabled ? "🔊 الصوت: مفعّل" : "🔇 الصوت: مكتوم";
+    }
+
+    function addScore(pts) {
+      state.score += pts;
+      document.getElementById("scoreBadge").textContent = `نقاط التفاعل: ${state.score} ⭐`;
+    }
+
+    function renderProgress() {
+      const total = lessons.length;
+      document.getElementById("pageIndicator").textContent = `الصفحة ${state.pageIndex + 1} من ${total}`;
+      document.getElementById("progressFill").style.width = `${((state.pageIndex + 1) / total) * 100}%`;
+      const dots = document.getElementById("pageDots");
+      dots.innerHTML = "";
+      lessons.forEach((l, idx) => {
+        const b = document.createElement("button");
+        b.className = "dot-btn" + (idx === state.pageIndex ? " active" : "");
+        b.textContent = `درس ${idx + 1}`;
+        b.onclick = () => { playTone(460, 0.06); state.pageIndex = idx; renderPage(); };
+        dots.appendChild(b);
+      });
+    }
+
+    function renderPage() {
+      renderProgress();
+      const l = lessons[state.pageIndex];
+      const container = document.getElementById("bookContainer");
+
+      const optsHtml = l.quiz.opts.map((opt, i) => {
+        let cls = "opt-btn";
+        if (state.answered[l.id] !== undefined) {
+          if (i === l.quiz.ans) cls += " correct";
+          else if (i === state.answered[l.id]) cls += " wrong";
+        }
+        return `<button class="${cls}" onclick="answerQuiz('${l.id}', ${i}, ${l.quiz.ans})">${opt}</button>`;
+      }).join("");
+
+      const feedbackHtml = state.answered[l.id] !== undefined
+        ? `<p style="margin-top:8px;font-weight:700;color:#0f4c81;">💡 التوضيح: ${l.quiz.why}</p>`
+        : "";
+
+      const mediaHtml = l.media.map(m =>
+        `<a class="btn-link ${m.type === 'yt' ? 'btn-red' : 'btn-blue'}" href="${m.url}" target="_blank" rel="noopener noreferrer">${m.label} ↗</a>`
+      ).join("");
+
+      container.innerHTML = `
+        <div class="lesson-header">
+          <div>
+            <h2 class="lesson-title">${l.title}</h2>
+            <div style="color:var(--muted);font-size:0.9rem;">${l.subtitle}</div>
+          </div>
+          <div class="lesson-btns">
+            <button class="btn-gold" onclick="toggleDrawer('simpleDrawer')">💡 شرح مبسّط</button>
+            <button class="btn-purple" onclick="toggleDrawer('amazingDrawer')">🌈 توسّع مذهل</button>
+            <button class="btn-blue" onclick="toggleDrawer('mediaDrawer')">🎬 أنيميشن ومحاكاة</button>
+          </div>
+        </div>
+
+        <div class="extra-drawer drawer-simple" id="simpleDrawer">
+          <strong>💡 شرح مبسّط للفكرة:</strong>
+          <p style="margin:6px 0 0;">${l.simpleExplain}</p>
+        </div>
+
+        <div class="extra-drawer drawer-amazing" id="amazingDrawer">
+          <strong>✨ آفاق مذهلة مرتبطة بالدرس:</strong>
+          <div class="amazing-grid">
+            ${l.amazing.map(item => `<div class="amazing-chip"><strong>${item.t}</strong><br><span>${item.d}</span></div>`).join("")}
+          </div>
+        </div>
+
+        <div class="extra-drawer drawer-media" id="mediaDrawer">
+          <strong>🎬 مقاطع أنيميشن وتجارب حية عالمية + مختبر PhET:</strong>
+          <div class="media-links">${mediaHtml}</div>
+        </div>
+
+        <div class="grid-2" style="margin-top:12px;">
+          <div>
+            <div class="panel">
+              <h3>📘 خلاصة الدرس والقانون بالرموز العربية</h3>
+              <p style="margin:0;">${l.summary}</p>
+              <div class="law-box">${l.law}</div>
+            </div>
+
+            <div class="panel">
+              <span class="career-tag">🛠️ معلم المهنة والربط التطبيقي</span>
+              <h3>${l.career}</h3>
+              <p style="margin:0;">${l.careerDesc}</p>
+            </div>
+
+            <div class="panel">
+              <h3>📝 سؤال وزاري تفاعلي على الدرس</h3>
+              <div class="q-card">
+                <div style="font-weight:700;">${l.quiz.q}</div>
+                ${optsHtml}
+                ${feedbackHtml}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="sim-box">
+              <h3>🔬 محاكاة حية بمحاور الأبعاد (الزمن / الطور / السعة)</h3>
+              <canvas id="simCanvas" width="520" height="270"></canvas>
+              <div class="axis-legend">
+                <span class="axis-pill" style="color:#f87171;">━ محور الزمن / المقاومة (س)</span>
+                <span class="axis-pill" style="color:#4ade80;">┃ محور الجهد والتيار (ص)</span>
+                <span class="axis-pill" style="color:#c084fc;">╱ البُعد الثالث (الطور)</span>
+              </div>
+              <div class="controls" id="simControls"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pager">
+          <button class="btn-nav" onclick="prevPage()" ${state.pageIndex === 0 ? "disabled" : ""}>← الصفحة السابقة</button>
+          <button class="btn-nav" onclick="nextPage()" ${state.pageIndex === lessons.length - 1 ? "disabled" : ""}>الصفحة التالية →</button>
+        </div>
+      `;
+
+      initSimulation(l.id);
+    }
+
+    function toggleDrawer(id) {
+      playTone(620, 0.07);
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle("open");
+    }
+
+    function answerQuiz(lessonId, chosen, correct) {
+      if (state.answered[lessonId] !== undefined) return;
+      state.answered[lessonId] = chosen;
+      if (chosen === correct) { playTone(780, 0.12); addScore(15); }
+      else { playTone(260, 0.14); addScore(5); }
+      renderPage();
+    }
+
+    function nextPage() {
+      if (state.pageIndex < lessons.length - 1) { playTone(540, 0.07); state.pageIndex++; renderPage(); }
+    }
+
+    function prevPage() {
+      if (state.pageIndex > 0) { playTone(440, 0.07); state.pageIndex--; renderPage(); }
+    }
+
+    function drawAxes(ctx, ox, oy, show3D = true, labelX = "+س (ز)", labelY = "+ص (جـ / ت)") {
+      ctx.save();
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.12)";
+      ctx.lineWidth = 1;
+      for (let x = 20; x < 500; x += 40) { ctx.beginPath(); ctx.moveTo(x, 15); ctx.lineTo(x, 255); ctx.stroke(); }
+      for (let y = 20; y < 260; y += 40) { ctx.beginPath(); ctx.moveTo(15, y); ctx.lineTo(505, y); ctx.stroke(); }
+
+      ctx.strokeStyle = "#f87171"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(30, oy); ctx.lineTo(490, oy); ctx.stroke();
+      ctx.fillStyle = "#fca5a5"; ctx.font = "bold 12px sans-serif";
+      ctx.fillText(labelX, 450, oy - 7);
+
+      ctx.strokeStyle = "#4ade80"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(ox, 22); ctx.lineTo(ox, 250); ctx.stroke();
+      ctx.fillStyle = "#86efac";
+      ctx.fillText(labelY, ox + 8, 34);
+
+      if (show3D) {
+        ctx.strokeStyle = "#c084fc"; ctx.setLineDash([5, 4]); ctx.lineWidth = 1.8;
+        ctx.beginPath(); ctx.moveTo(ox - 70, oy + 65); ctx.lineTo(ox + 80, oy - 72); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = "#d8b4fe"; ctx.fillText("البُعد ٣", ox + 75, oy - 76);
+      }
+      ctx.restore();
+    }
+
+    let animId = null;
+    function initSimulation(id) {
+      if (animId) cancelAnimationFrame(animId);
+      const canvas = document.getElementById("simCanvas");
+      const ctx = canvas.getContext("2d");
+      const ctrl = document.getElementById("simControls");
+      ctrl.innerHTML = "";
+      let phase = 0;
+
+      if (id === "ac_gen" || id === "ac_eff") {
+        let freq = 2;
+        ctrl.innerHTML = `<label>التردد (ت): <input type="range" min="1" max="5" value="2" id="freqRange"></label>`;
+        document.getElementById("freqRange").oninput = (e) => { freq = Number(e.target.value); };
+
+        const loop = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          drawAxes(ctx, 75, 138, true, "+س (الزمن)", "+ص (ق د ك)");
+
+          // خط القيمة الفعالة
+          const effY = 138 - 75 * 0.707;
+          ctx.strokeStyle = "#fbbf24";
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath(); ctx.moveTo(75, effY); ctx.lineTo(485, effY); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = "#fbbf24";
+          ctx.fillText("القيمة الفعالة (٠٫٧٠٧ عظمى)", 320, effY - 6);
+
+          // الموجة الجيبية
+          ctx.strokeStyle = "#38bdf8";
+          ctx.lineWidth = 2.6;
+          ctx.beginPath();
+          for (let x = 75; x < 485; x++) {
+            const y = 138 - 75 * Math.sin(((x - 75) * 0.025 * freq) + phase);
+            if (x === 75) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+
+          phase += 0.05;
+          animId = requestAnimationFrame(loop);
+        };
+        loop();
+      } else {
+        let xl = 70, xc = 40;
+        ctrl.innerHTML = `
+          <label>م حث: <input type="range" min="20" max="100" value="70" id="xlR"></label>
+          <label>م سع: <input type="range" min="20" max="100" value="40" id="xcR"></label>
+        `;
+        document.getElementById("xlR").oninput = (e) => { xl = Number(e.target.value); };
+        document.getElementById("xcR").oninput = (e) => { xc = Number(e.target.value); };
+
+        const loop = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const ox = 220, oy = 140, r = 70;
+          drawAxes(ctx, ox, oy, true, "+س (م)", "+ص (م حث − م سع)");
+
+          // متجه المقاومة
+          ctx.strokeStyle = "#f87171"; ctx.lineWidth = 3;
+          ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + r, oy); ctx.stroke();
+
+          // متجه المحصلة الرأسية
+          const netY = xl - xc;
+          ctx.strokeStyle = "#4ade80"; ctx.lineWidth = 3;
+          ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy - netY); ctx.stroke();
+
+          // متجه المعاوقة الكلية
+          ctx.strokeStyle = "#fbbf24"; ctx.lineWidth = 3.2;
+          ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + r, oy - netY); ctx.stroke();
+
+          const stateTxt = Math.abs(netY) < 4 ? "حالة رنين كهربائي (م حث = م سع)!" : netY > 0 ? "خواص حثية (م حث > م سع)" : "خواص سعوية (م سع > م حث)";
+          ctx.fillStyle = "#5eead4"; ctx.font = "bold 12px sans-serif";
+          ctx.fillText(stateTxt, 16, 22);
+
+          animId = requestAnimationFrame(loop);
+        };
+        loop();
+      }
+    }
+
+    function openModal(title, html) {
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalBody").innerHTML = html;
+      document.getElementById("modalBackdrop").classList.add("open");
+    }
+
+    function closeModal(e) {
+      if (!e || e.target.id === "modalBackdrop") document.getElementById("modalBackdrop").classList.remove("open");
+    }
+
+    function openOriginalBook() {
+      const l = lessons[state.pageIndex];
+      openModal(`📖 الكتاب الأصلي — ${l.title}`, `<div class="panel">${l.originalText}</div>`);
+    }
+
+    function openUnitReview() {
+      const html = unitReviewQuestions.map((item, idx) => `
+        <div class="panel">
+          <div style="font-weight:700;">${item.q}</div>
+          <button class="btn-teal" style="margin-top:8px;" onclick="toggleSol('sol_${idx}')">إظهار / إخفاء الحل</button>
+          <div class="solution-box" id="sol_${idx}">${item.a}</div>
+        </div>
+      `).join("");
+      openModal("✅ حل تقويم الوحدة الثانية كاملاً (التيار المتردد)", html);
+    }
+
+    function toggleSol(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle("show");
+    }
+
+    function speakText(txt) {
+      if (!state.soundEnabled || !("speechSynthesis" in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(txt.replace(/<[^>]+>/g, ""));
+        u.lang = "ar-SA";
+        window.speechSynthesis.speak(u);
+      } catch (e) {}
+    }
+
+    function openTeacherChat() {
+      const logHtml = state.chatHistory.map(m => `<div class="msg ${m.from}">${m.text}</div>`).join("");
+      openModal("🤖 المدرس الذكي (Pollinations AI — أ. عمر حسان عبره)", `
+        <div class="chat-log" id="chatLog">${logHtml}</div>
+        <div style="display:flex;gap:8px;">
+          <input id="chatInput" type="text" placeholder="اكتب سؤالك في التيار المتردد..." style="flex:1;padding:9px 12px;border-radius:10px;border:1px solid #cbd5e1;font-family:inherit;" />
+          <button class="btn-teal" onclick="sendChat()">إرسال</button>
+        </div>
+      `);
+    }
+
+    async function sendChat() {
+      const input = document.getElementById("chatInput");
+      const val = input.value.trim();
+      if (!val) return;
+      const l = lessons[state.pageIndex];
+      state.chatHistory.push({ from: "user", text: val });
+      state.chatHistory.push({ from: "bot", text: "⏳ جارٍ الاتصال بالذكاء الاصطناعي وتوليد الإجابة..." });
+      openTeacherChat();
+
+      const promptText = `أنت مساعد الأستاذ عمر حسان عبره (737219181) في كتاب فيزياء ثالث ثانوي (المنهج اليمني - الوحدة الثانية: التيار المتردد). الدرس الحالي: ${l.title}. القانون: ${l.law}. أجب بالعربية الفصحى المبسطة مستخدماً الرموز العربية (ق د ك، ت، جـ، م، حث، سع، مع، ω).\nالسؤال: ${val}`;
+      try {
+        const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(promptText)}`);
+        if (!res.ok) throw new Error("Failed");
+        const reply = (await res.text()).trim();
+        state.chatHistory[state.chatHistory.length - 1] = { from: "bot", text: reply };
+        speakText(reply);
+      } catch (e) {
+        const fb = `في درس (${l.title}): ${l.summary} | القانون: ${l.law}`;
+        state.chatHistory[state.chatHistory.length - 1] = { from: "bot", text: fb };
+        speakText(fb);
+      }
+      openTeacherChat();
+    }
+
+    checkAccessStatus();
+    renderPage();
+  </script>
+</body>
+</html>
